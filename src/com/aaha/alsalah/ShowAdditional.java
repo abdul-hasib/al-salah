@@ -27,7 +27,8 @@ import com.aaha.alsalah.additional.EditSalah;
 import com.aaha.alsalah.settings.Settings;
 import com.aaha.db.DBAdapter;
 import com.aaha.db.DBAdapter.PrayerType;
-import com.aaha.db.DBAdapter.Prayers;
+import com.aaha.db.DBAdapter.T_Prayers;
+import com.aaha.util.LogUtil;
 import com.aaha.util.Salah;
 import com.aaha.util.Util;
 import com.actionbarsherlock.app.SherlockFragment;
@@ -81,7 +82,7 @@ public class ShowAdditional extends SherlockFragment implements OnClickListener 
 			loadAdditionalPrayers();
 
 		} catch (Exception e) {
-			Util.Toast(getActivity().getApplicationContext(),
+			LogUtil.toastShort(getActivity().getApplicationContext(),
 					"Exception occured while loading Salah: " + e.toString());
 			e.printStackTrace();
 		}
@@ -131,7 +132,7 @@ public class ShowAdditional extends SherlockFragment implements OnClickListener 
 		alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				db.prayer.delete(prayerId);
-				Util.Toast(getActivity().getApplicationContext(),
+				LogUtil.toastShort(getActivity().getApplicationContext(),
 						"Prayer deleted!");
 				myCursorAdapter.runQueryOnBackgroundThread("");
 				myCursorAdapter.notifyDataSetChanged();
@@ -164,7 +165,7 @@ public class ShowAdditional extends SherlockFragment implements OnClickListener 
 			try {
 				deletePrayer(menuInfo.id);
 			} catch (Exception e) {
-				Util.Toast(getActivity().getApplicationContext(),
+				LogUtil.toastShort(getActivity().getApplicationContext(),
 						"Exception while deleting prayer: " + e.toString());
 			}
 			break;
@@ -176,9 +177,9 @@ public class ShowAdditional extends SherlockFragment implements OnClickListener 
 
 		mCursor = db.prayer.getPrayers(prayerType);
 
-		String[] databaseColumnNames = new String[] { Prayers.KEY_DATE,
-				Prayers.KEY_FAJR, Prayers.KEY_ZOHAR, Prayers.KEY_ASR,
-				Prayers.KEY_MAGRIB, Prayers.KEY_ISHA };
+		String[] databaseColumnNames = new String[] { T_Prayers.KEY_DATE,
+				T_Prayers.KEY_FAJR, T_Prayers.KEY_ZOHAR, T_Prayers.KEY_ASR,
+				T_Prayers.KEY_MAGRIB, T_Prayers.KEY_ISHA };
 
 		int[] toViewIDs = new int[] { R.id.item_date, R.id.item_fajr,
 				R.id.item_zohar, R.id.item_asr, R.id.item_magrib,
@@ -194,7 +195,7 @@ public class ShowAdditional extends SherlockFragment implements OnClickListener 
 					int columnIndex) {
 
 				if (cursor.getColumnName(columnIndex).equalsIgnoreCase(
-						Prayers.KEY_DATE)) {
+						T_Prayers.KEY_DATE)) {
 
 					long date = cursor.getLong(columnIndex);
 					((TextView) view).setText(Util.formatDate(date * 1000));

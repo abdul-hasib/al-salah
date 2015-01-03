@@ -12,7 +12,8 @@ import android.widget.TextView;
 
 import com.aaha.alsalah.R;
 import com.aaha.db.DBAdapter;
-import com.aaha.db.DBAdapter.Prayers;
+import com.aaha.db.DBAdapter.T_Prayers;
+import com.aaha.util.LogUtil;
 import com.aaha.util.Salah;
 import com.aaha.util.Util;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -85,13 +86,13 @@ public class EditSalah extends SherlockFragmentActivity implements
 		int f = 0, z = 0, a = 0, m = 0, i = 0;
 		if (mCursor != null) {
 			if (mCursor.moveToFirst()) {
-				f = mCursor.getInt(mCursor.getColumnIndex(Prayers.KEY_FAJR));
-				z = mCursor.getInt(mCursor.getColumnIndex(Prayers.KEY_ZOHAR));
-				a = mCursor.getInt(mCursor.getColumnIndex(Prayers.KEY_ASR));
-				m = mCursor.getInt(mCursor.getColumnIndex(Prayers.KEY_MAGRIB));
-				i = mCursor.getInt(mCursor.getColumnIndex(Prayers.KEY_ISHA));
+				f = mCursor.getInt(mCursor.getColumnIndex(T_Prayers.KEY_FAJR));
+				z = mCursor.getInt(mCursor.getColumnIndex(T_Prayers.KEY_ZOHAR));
+				a = mCursor.getInt(mCursor.getColumnIndex(T_Prayers.KEY_ASR));
+				m = mCursor.getInt(mCursor.getColumnIndex(T_Prayers.KEY_MAGRIB));
+				i = mCursor.getInt(mCursor.getColumnIndex(T_Prayers.KEY_ISHA));
 				date = mCursor
-						.getLong(mCursor.getColumnIndex(Prayers.KEY_DATE));
+						.getLong(mCursor.getColumnIndex(T_Prayers.KEY_DATE));
 			}
 			mCursor.close();
 		}
@@ -139,7 +140,7 @@ public class EditSalah extends SherlockFragmentActivity implements
 
 			if (validateFields(f, z, a, m, i)) {
 				if (db.prayer.update(prayerId, f, z, a, m, i) > 0) {
-					Util.Toast(getApplicationContext(), "Qadha Salah updated!");
+					LogUtil.toastShort(getApplicationContext(), "Qadha Salah updated!");
 					super.finish();
 				}
 			}
@@ -202,7 +203,7 @@ public class EditSalah extends SherlockFragmentActivity implements
 
 	private boolean validateFields(int f, int z, int a, int m, int i) {
 		if (f == 0 && z == 0 && a == 0 && m == 0 && i == 0) {
-			Util.Toast(getApplicationContext(), "Please enter prayers");
+			LogUtil.toastShort(getApplicationContext(), "Please enter prayers");
 			return false;
 		}
 		return true;

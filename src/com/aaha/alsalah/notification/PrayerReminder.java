@@ -14,6 +14,7 @@ import android.widget.TimePicker;
 import com.aaha.alsalah.R;
 import com.aaha.db.DBAdapter;
 import com.aaha.util.Alarm;
+import com.aaha.util.LogUtil;
 import com.aaha.util.Util;
 import com.actionbarsherlock.app.SherlockActivity;
 
@@ -178,14 +179,15 @@ public class PrayerReminder extends SherlockActivity implements OnClickListener 
 			try {
 				updateReminderTime();
 				Alarm.enablePrayerReminders(getApplicationContext(), db);
-				Util.Toast(getApplicationContext(), "Notifications are updated");
+				LogUtil.toastShort(getApplicationContext(),
+						"Notifications are updated");
 				super.finish();
 			} catch (NumberFormatException ex) {
-				Util.Toast(getApplicationContext(), "Please set time");
+				LogUtil.toastShort(getApplicationContext(), "Please set time");
 			} catch (Exception ex) {
-				Util.Toast(getApplicationContext(), "Exception occurred", ex);
+				LogUtil.toastShort(getApplicationContext(),
+						"Exception occurred", ex);
 			}
-
 			break;
 		}
 	}

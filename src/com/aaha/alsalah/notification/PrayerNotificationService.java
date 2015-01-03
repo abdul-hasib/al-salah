@@ -12,6 +12,7 @@ import com.aaha.alsalah.Home;
 import com.aaha.alsalah.R;
 import com.aaha.db.DBAdapter;
 import com.aaha.util.Alarm;
+import com.aaha.util.LogUtil;
 import com.aaha.util.Util;
 
 public class PrayerNotificationService extends BroadcastReceiver {
@@ -34,7 +35,7 @@ public class PrayerNotificationService extends BroadcastReceiver {
 			try {
 				Alarm.enablePrayerReminders(context, db);
 			} catch (Exception e) {
-				Util.Toast(context, "Exception occured while setting alarms", e);
+				LogUtil.toastShort(context, "Exception occured while setting alarms", e);
 			}
 
 			db.close();

@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.aaha.alsalah.R;
 import com.aaha.db.DBAdapter;
-import com.aaha.db.DBAdapter.Tasbeeh;
-import com.aaha.util.Util;
+import com.aaha.db.DBAdapter.T_Tasbeeh;
+import com.aaha.util.LogUtil;
 
 public class EditTasbeeh extends Activity implements OnClickListener {
 	DBAdapter db;
@@ -53,15 +53,15 @@ public class EditTasbeeh extends Activity implements OnClickListener {
 
 		if (mCursor.moveToFirst()) {
 			tasbeehName.setText(mCursor.getString(mCursor
-					.getColumnIndex(Tasbeeh.KEY_NAME)));
+					.getColumnIndex(T_Tasbeeh.KEY_NAME)));
 			tasbeehField.setText(mCursor.getString(mCursor
-					.getColumnIndex(Tasbeeh.KEY_TASBEEH)));
+					.getColumnIndex(T_Tasbeeh.KEY_TASBEEH)));
 			tasbeehMeaning.setText(mCursor.getString(mCursor
-					.getColumnIndex(Tasbeeh.KEY_MEANING)));
+					.getColumnIndex(T_Tasbeeh.KEY_MEANING)));
 			tasbeehCount.setText(mCursor.getString(mCursor
-					.getColumnIndex(Tasbeeh.KEY_DEFAULT_COUNT)));
+					.getColumnIndex(T_Tasbeeh.KEY_DEFAULT_COUNT)));
 			tasbeehNotes.setText(mCursor.getString(mCursor
-					.getColumnIndex(Tasbeeh.KEY_NOTES)));
+					.getColumnIndex(T_Tasbeeh.KEY_NOTES)));
 		}
 		mCursor.close();
 	}
@@ -83,13 +83,14 @@ public class EditTasbeeh extends Activity implements OnClickListener {
 	public void updateTasbeeh() {
 		String name = tasbeehName.getText().toString().trim();
 		if (name.length() == 0) {
-			Util.Toast(getApplicationContext(), "Please enter Tasbeeh name");
+			LogUtil.toastShort(getApplicationContext(),
+					"Please enter Tasbeeh name");
 			return;
 		}
 
 		String tasbeeh = tasbeehField.getText().toString().trim();
 		if (tasbeeh.length() == 0) {
-			Util.Toast(getApplicationContext(), "Please enter Tasbeeh ");
+			LogUtil.toastShort(getApplicationContext(), "Please enter Tasbeeh ");
 			return;
 		}
 
@@ -100,22 +101,22 @@ public class EditTasbeeh extends Activity implements OnClickListener {
 		try {
 			count = Integer.valueOf(tasbeehCount.getText().toString().trim());
 		} catch (Exception e) {
-			Util.Toast(getApplicationContext(),
+			LogUtil.toastShort(getApplicationContext(),
 					"Please enter default Tasbeeh count");
 			return;
 		}
 
 		if (count == 0) {
-			Util.Toast(getApplicationContext(),
+			LogUtil.toastShort(getApplicationContext(),
 					"Please enter default Tasbeeh count");
 			return;
 		}
 
 		if (db.tasbeeh.update(tasbeehId, name, tasbeeh, meaning, count, notes) > -1) {
-			Util.Toast(getApplicationContext(), "Tasbeeh updated!!!");
+			LogUtil.toastShort(getApplicationContext(), "Tasbeeh updated!!!");
 			super.finish();
 		} else {
-			Util.Toast(getApplicationContext(), "Update failed!!!");
+			LogUtil.toastShort(getApplicationContext(), "Update failed!!!");
 		}
 	}
 

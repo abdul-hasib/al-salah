@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.aaha.alsalah.R;
 import com.aaha.db.DBAdapter;
 import com.aaha.db.DBAdapter.PrayerType;
+import com.aaha.util.LogUtil;
 import com.aaha.util.Salah;
 import com.aaha.util.Util;
 import com.actionbarsherlock.app.SherlockFragment;
@@ -61,7 +62,7 @@ public class ShowLifetimeCounts extends SherlockFragment {
 			loadPrayersStatistics();
 		} catch (Exception e) {
 			e.printStackTrace();
-			Util.Toast(getSherlockActivity(), "Exception occurred" + e);
+			LogUtil.toastShort(getSherlockActivity(), "Exception occurred" + e);
 		} finally {
 			mCursorOnTime.close();
 			mCursorDelayed.close();

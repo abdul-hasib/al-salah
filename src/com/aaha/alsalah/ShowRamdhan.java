@@ -28,7 +28,8 @@ import com.aaha.alsalah.ramdhan.AddRamdhanDetails;
 import com.aaha.alsalah.ramdhan.EditRamdhanDetails;
 import com.aaha.alsalah.settings.Settings;
 import com.aaha.db.DBAdapter;
-import com.aaha.db.DBAdapter.Ramdhan;
+import com.aaha.db.DBAdapter.T_Ramdhan;
+import com.aaha.util.LogUtil;
 import com.aaha.util.Util;
 import com.actionbarsherlock.app.SherlockFragment;
 
@@ -81,7 +82,7 @@ public class ShowRamdhan extends SherlockFragment implements OnClickListener {
 		try {
 			loadRamdhanDetails();
 		} catch (Exception e) {
-			Util.Toast(
+			LogUtil.toastShort(
 					getActivity().getApplicationContext(),
 					"Exception occured while loading ramdhan details: "
 							+ e.toString());
@@ -91,7 +92,7 @@ public class ShowRamdhan extends SherlockFragment implements OnClickListener {
 		try {
 			setProgressBar();
 		} catch (Exception e) {
-			Util.Toast(
+			LogUtil.toastShort(
 					getActivity().getApplicationContext(),
 					"Exception occured while loading quran progress: "
 							+ e.toString());
@@ -143,7 +144,7 @@ public class ShowRamdhan extends SherlockFragment implements OnClickListener {
 		alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				db.ramdhan.delete(ramdhanId);
-				Util.Toast(getActivity().getApplicationContext(),
+				LogUtil.toastShort(getActivity().getApplicationContext(),
 						"Details deleted!");
 				myCursorAdapter.runQueryOnBackgroundThread("");
 				myCursorAdapter.notifyDataSetChanged();
@@ -168,7 +169,7 @@ public class ShowRamdhan extends SherlockFragment implements OnClickListener {
 		switch (item.getItemId()) {
 		case R.id.editRamdhanDetails:
 			Intent i = new Intent(getActivity(), EditRamdhanDetails.class);
-			i.putExtra(Ramdhan.KEY_ID, menuInfo.id);
+			i.putExtra(T_Ramdhan.KEY_ID, menuInfo.id);
 			startActivity(i);
 			break;
 
@@ -176,7 +177,7 @@ public class ShowRamdhan extends SherlockFragment implements OnClickListener {
 			try {
 				deleteRamdhanDetaisl(menuInfo.id);
 			} catch (Exception e) {
-				Util.Toast(getActivity().getApplicationContext(),
+				LogUtil.toastShort(getActivity().getApplicationContext(),
 						"Exception while deleting details: " + e.toString());
 			}
 			break;
@@ -200,8 +201,8 @@ public class ShowRamdhan extends SherlockFragment implements OnClickListener {
 
 		mCursor = db.ramdhan.get();
 
-		String[] databaseColumnNames = new String[] { Ramdhan.KEY_DATE,
-				Ramdhan.KEY_SIYAM, Ramdhan.KEY_TARAWEEH, Ramdhan.KEY_QURAN_JUZ };
+		String[] databaseColumnNames = new String[] { T_Ramdhan.KEY_DATE,
+				T_Ramdhan.KEY_SIYAM, T_Ramdhan.KEY_TARAWEEH, T_Ramdhan.KEY_QURAN_JUZ };
 
 		int[] toViewIDs = new int[] { R.id.item_date, R.id.item_siyam,
 				R.id.item_taraweeh, R.id.item_quran_vol };
@@ -216,7 +217,7 @@ public class ShowRamdhan extends SherlockFragment implements OnClickListener {
 					int columnIndex) {
 
 				if (cursor.getColumnName(columnIndex).equalsIgnoreCase(
-						Ramdhan.KEY_DATE)) {
+						T_Ramdhan.KEY_DATE)) {
 
 					long date = cursor.getLong(columnIndex);
 					((TextView) view).setText(Util.formatDate(date * 1000));
@@ -238,9 +239,9 @@ public class ShowRamdhan extends SherlockFragment implements OnClickListener {
 				}
 
 				if (cursor.getColumnName(columnIndex).equalsIgnoreCase(
-						Ramdhan.KEY_TARAWEEH)
+						T_Ramdhan.KEY_TARAWEEH)
 						|| cursor.getColumnName(columnIndex).equalsIgnoreCase(
-								Ramdhan.KEY_SIYAM)) {
+								T_Ramdhan.KEY_SIYAM)) {
 					if (cursor.getInt(columnIndex) == 1) {
 						((TextView) view).setTextColor(Color.rgb(0, 128, 0));
 						((TextView) view).setText("Yes");

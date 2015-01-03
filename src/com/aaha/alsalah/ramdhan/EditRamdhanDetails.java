@@ -16,7 +16,8 @@ import android.widget.TextView;
 
 import com.aaha.alsalah.R;
 import com.aaha.db.DBAdapter;
-import com.aaha.db.DBAdapter.Ramdhan;
+import com.aaha.db.DBAdapter.T_Ramdhan;
+import com.aaha.util.LogUtil;
 import com.aaha.util.Util;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
@@ -70,7 +71,7 @@ public class EditRamdhanDetails extends SherlockFragmentActivity implements
 		});
 
 		Bundle extras = getIntent().getExtras();
-		id = (int) extras.getLong(Ramdhan.KEY_ID);
+		id = (int) extras.getLong(T_Ramdhan.KEY_ID);
 		setRamdhanSettings(id);
 	}
 
@@ -82,15 +83,15 @@ public class EditRamdhanDetails extends SherlockFragmentActivity implements
 		try {
 			if (c != null) {
 				c.moveToFirst();
-				s = c.getInt(c.getColumnIndex(Ramdhan.KEY_SIYAM));
-				t = c.getInt(c.getColumnIndex(Ramdhan.KEY_TARAWEEH));
-				q = c.getInt(c.getColumnIndex(Ramdhan.KEY_QURAN));
-				qv = c.getFloat(c.getColumnIndex(Ramdhan.KEY_QURAN_JUZ));
-				date = c.getLong(c.getColumnIndex(Ramdhan.KEY_DATE));
+				s = c.getInt(c.getColumnIndex(T_Ramdhan.KEY_SIYAM));
+				t = c.getInt(c.getColumnIndex(T_Ramdhan.KEY_TARAWEEH));
+				q = c.getInt(c.getColumnIndex(T_Ramdhan.KEY_QURAN));
+				qv = c.getFloat(c.getColumnIndex(T_Ramdhan.KEY_QURAN_JUZ));
+				date = c.getLong(c.getColumnIndex(T_Ramdhan.KEY_DATE));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			Util.Toast(getApplicationContext(), "Error occurred: " + e);
+			LogUtil.toastShort(getApplicationContext(), "Error occurred: " + e);
 		} finally {
 			if (c != null)
 				c.close();
@@ -115,7 +116,7 @@ public class EditRamdhanDetails extends SherlockFragmentActivity implements
 				try {
 					qv = Float.parseFloat(quranJuz.getText().toString());
 				} catch (NumberFormatException nef) {
-					Util.Toast(getApplicationContext(),
+					LogUtil.toastShort(getApplicationContext(),
 							"Please enter number of Juz\'");
 					return;
 				}
@@ -129,9 +130,9 @@ public class EditRamdhanDetails extends SherlockFragmentActivity implements
 	private void updateRamdhanDetails(int id, int f, int t, int q, float qv) {
 
 		if (db.ramdhan.update(id, f, t, q, qv) > 0) {
-			Util.Toast(getApplicationContext(), "Details updated!");
+			LogUtil.toastShort(getApplicationContext(), "Details updated!");
 		} else {
-			Util.Toast(getApplicationContext(), "Error while updating details");
+			LogUtil.toastShort(getApplicationContext(), "Error while updating details");
 		}
 	}
 

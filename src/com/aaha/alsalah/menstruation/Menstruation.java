@@ -1,9 +1,5 @@
-package com.aaha.alsalah.ada;
+package com.aaha.alsalah.menstruation;
 
-import java.util.Date;
-
-import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -12,30 +8,26 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 import com.aaha.alsalah.R;
-import com.aaha.alsalah.settings.Settings;
-import com.aaha.alsalah.tasbeeh.TasbeehHome;
 import com.aaha.db.DBAdapter;
-import com.aaha.db.DBAdapter.T_Prayers;
+import com.aaha.db.DBAdapter.T_Qasr;
 import com.aaha.util.LogUtil;
 import com.aaha.util.Salah;
 import com.aaha.util.Util;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
-public class EditAda extends SherlockFragmentActivity implements
+public class Menstruation extends SherlockFragmentActivity implements
 		OnClickListener {
 
 	int prayerId;
+	long date;
 	DBAdapter db;
 	Button prayerDate, savePrayer;
 	CheckBox fajr, zohar, asr, magrib, isha;
-	Context context;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_daily_salah);
-
-		context = getApplicationContext();
 
 		db = new DBAdapter(getApplicationContext());
 		db.open();
@@ -45,7 +37,8 @@ public class EditAda extends SherlockFragmentActivity implements
 
 		savePrayer = (Button) findViewById(R.id.savePrayerButton);
 		savePrayer.setOnClickListener(this);
-		savePrayer.setText(Util.getString(context, R.string.update));
+		savePrayer.setText(Util.getString(getApplicationContext(),
+				R.string.mark_menstruation));
 
 		fajr = (CheckBox) findViewById(R.id.fajrCheckbox);
 		zohar = (CheckBox) findViewById(R.id.zoharCheckbox);
@@ -59,18 +52,15 @@ public class EditAda extends SherlockFragmentActivity implements
 	}
 
 	private void setPrayer(int prayerId) {
-		Cursor c = db.prayer.get(prayerId);
-		long date = (new Date()).getTime();
+		Cursor c = db.menstruation.get(prayerId);
 		int f = 0, z = 0, a = 0, m = 0, i = 0;
 		try {
-			if (c != null) {
-				c.moveToFirst();
-				f = c.getInt(c.getColumnIndex(T_Prayers.KEY_FAJR));
-				z = c.getInt(c.getColumnIndex(T_Prayers.KEY_ZOHAR));
-				a = c.getInt(c.getColumnIndex(T_Prayers.KEY_ASR));
-				m = c.getInt(c.getColumnIndex(T_Prayers.KEY_MAGRIB));
-				i = c.getInt(c.getColumnIndex(T_Prayers.KEY_ISHA));
-				date = c.getLong(c.getColumnIndex(T_Prayers.KEY_DATE));
+			if (c != null && c.moveToFirst()) {
+				f = c.getInt(c.getColumnIndex(T_Qasr.KEY_FAJR));
+				z = c.getInt(c.getColumnIndex(T_Qasr.KEY_ZOHAR));
+				a = c.getInt(c.getColumnIndex(T_Qasr.KEY_ASR));
+				m = c.getInt(c.getColumnIndex(T_Qasr.KEY_MAGRIB));
+				i = c.getInt(c.getColumnIndex(T_Qasr.KEY_ISHA));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -84,6 +74,8 @@ public class EditAda extends SherlockFragmentActivity implements
 		asr.setChecked(a == 1);
 		magrib.setChecked(m == 1);
 		isha.setChecked(i == 1);
+
+		date = db.prayer.getDate(prayerId);
 		prayerDate.setText(Util.formatDate(date * 1000));
 	}
 
@@ -98,33 +90,35 @@ public class EditAda extends SherlockFragmentActivity implements
 			int m = magrib.isChecked() ? 1 : 0;
 			int i = isha.isChecked() ? 1 : 0;
 
-			updatePrayer(prayerId, f, z, a, m, i);
+			String date = prayerDate.getText().toString();
+
+			setHaize(prayerId, date, f, z, a, m, i);
 			backToHome();
 			break;
 		}
 	}
 
-	private void updatePrayer(int prayerId, int f, int z, int a, int m, int i) {
-
-		if (db.prayer.update(prayerId, f, z, a, m, i) > 0) {
-			LogUtil.toastShort(getApplicationContext(), "Salah updated!");
+	private void setHaize(int prayerId, String date, int f, int z, int a,
+			int m, int i) {
+		long result = -1;
+		if (db.menstruation.isExist(prayerId)) {
+			result = db.menstruation.update(prayerId, f, z, a, m, i);
 		} else {
-			LogUtil.toastShort(getApplicationContext(), "Error while updating Salah");
+			result = db.menstruation.add(prayerId, date, f, z, a, m, i);
 		}
+
+		if (result > 0) {
+			LogUtil.toastShort(getApplicationContext(), "Menstruation settings saved!");
+		} else {
+			LogUtil.toastShort(getApplicationContext(),
+					"Error while updating Menstruation settings");
+
+		}
+
 	}
 
 	private void backToHome() {
-		boolean showTasbeehPage = Settings.getBoolean(
-				Settings.PREF_TASBEEH_AUTO_DIRECT, getApplicationContext(),
-				false);
-
-		if (showTasbeehPage) {
-			Intent i = new Intent(EditAda.this, TasbeehHome.class);
-			startActivity(i);
-		}
-
-		EditAda.this.finish();
-
+		super.finish();
 	}
 
 	@Override

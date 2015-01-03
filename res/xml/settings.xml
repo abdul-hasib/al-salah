@@ -47,7 +47,7 @@
         </CheckBoxPreference>
 
         <EditTextPreference
-            android:defaultValue=""
+            android:defaultValue="30"
             android:key="pref_daily_salah_limit"
             android:numeric="integer"
             android:summary="@string/pref_daily_salah_limit_summary"

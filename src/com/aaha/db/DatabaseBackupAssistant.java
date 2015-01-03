@@ -12,12 +12,12 @@ import android.database.Cursor;
 import android.os.Environment;
 import android.util.Log;
 
-import com.aaha.db.DBAdapter.Menstruation;
-import com.aaha.db.DBAdapter.Prayers;
-import com.aaha.db.DBAdapter.Qasr;
-import com.aaha.db.DBAdapter.Ramdhan;
-import com.aaha.db.DBAdapter.Tasbeeh;
-import com.aaha.db.DBAdapter.TasbeehCount;
+import com.aaha.db.DBAdapter.T_Menstruation;
+import com.aaha.db.DBAdapter.T_Prayers;
+import com.aaha.db.DBAdapter.T_Qasr;
+import com.aaha.db.DBAdapter.T_Ramdhan;
+import com.aaha.db.DBAdapter.T_Tasbeeh;
+import com.aaha.db.DBAdapter.T_TasbeehCount;
 import com.aaha.util.Util;
 
 /*
@@ -67,12 +67,12 @@ public class DatabaseBackupAssistant {
 				tableName = mCursor.getString(mCursor.getColumnIndex("name"));
 
 				// process only these tables
-				if (tableName.equalsIgnoreCase(Prayers.TABLE_NAME)
-						|| tableName.equalsIgnoreCase(Tasbeeh.TABLE_NAME)
-						|| tableName.equalsIgnoreCase(TasbeehCount.TABLE_NAME)
-						|| tableName.equalsIgnoreCase(Qasr.TABLE_NAME)
-						|| tableName.equalsIgnoreCase(Menstruation.TABLE_NAME)
-						|| tableName.equalsIgnoreCase(Ramdhan.TABLE_NAME)) {
+				if (tableName.equalsIgnoreCase(T_Prayers.TABLE_NAME)
+						|| tableName.equalsIgnoreCase(T_Tasbeeh.TABLE_NAME)
+						|| tableName.equalsIgnoreCase(T_TasbeehCount.TABLE_NAME)
+						|| tableName.equalsIgnoreCase(T_Qasr.TABLE_NAME)
+						|| tableName.equalsIgnoreCase(T_Menstruation.TABLE_NAME)
+						|| tableName.equalsIgnoreCase(T_Ramdhan.TABLE_NAME)) {
 					exportTable(tableName);
 				}
 
@@ -95,22 +95,22 @@ public class DatabaseBackupAssistant {
 		Log.d(DBAdapter.TAG, tableName);
 
 		Cursor mCursor = null;
-		if (tableName.equalsIgnoreCase(Prayers.TABLE_NAME)) {
+		if (tableName.equalsIgnoreCase(T_Prayers.TABLE_NAME)) {
 			mCursor = _db.prayer.getPrayersToExport();
 		}
-		if (tableName.equalsIgnoreCase(Tasbeeh.TABLE_NAME)) {
+		if (tableName.equalsIgnoreCase(T_Tasbeeh.TABLE_NAME)) {
 			mCursor = _db.tasbeeh.getTasbeehToExport();
 		}
-		if (tableName.equalsIgnoreCase(TasbeehCount.TABLE_NAME)) {
+		if (tableName.equalsIgnoreCase(T_TasbeehCount.TABLE_NAME)) {
 			mCursor = _db.tasbeehCount.getTasbeehCountToExport();
 		}
-		if (tableName.equalsIgnoreCase(Qasr.TABLE_NAME)) {
+		if (tableName.equalsIgnoreCase(T_Qasr.TABLE_NAME)) {
 			mCursor = _db.qasr.getQasrPrayersToExport();
 		}
-		if (tableName.equalsIgnoreCase(Menstruation.TABLE_NAME)) {
+		if (tableName.equalsIgnoreCase(T_Menstruation.TABLE_NAME)) {
 			mCursor = _db.menstruation.getMenstruationPrayersToExport();
 		}
-		if (tableName.equalsIgnoreCase(Ramdhan.TABLE_NAME)) {
+		if (tableName.equalsIgnoreCase(T_Ramdhan.TABLE_NAME)) {
 			mCursor = _db.ramdhan.getRamdhanDetailsToExport();
 		}
 
@@ -134,10 +134,10 @@ public class DatabaseBackupAssistant {
 				name = mCursor.getColumnName(idx);
 				val = mCursor.getString(idx);
 
-				if (name.equalsIgnoreCase(Prayers.KEY_DATE)
-						|| name.equalsIgnoreCase(Qasr.KEY_DATE)
-						|| name.equalsIgnoreCase(Menstruation.KEY_DATE)
-						|| name.equalsIgnoreCase(Ramdhan.KEY_DATE)) {
+				if (name.equalsIgnoreCase(T_Prayers.KEY_DATE)
+						|| name.equalsIgnoreCase(T_Qasr.KEY_DATE)
+						|| name.equalsIgnoreCase(T_Menstruation.KEY_DATE)
+						|| name.equalsIgnoreCase(T_Ramdhan.KEY_DATE)) {
 					val = Util.formatDate(Long.valueOf(val) * 1000).toString();
 				}
 

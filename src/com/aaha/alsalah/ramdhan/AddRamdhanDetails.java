@@ -21,7 +21,8 @@ import android.widget.TextView;
 
 import com.aaha.alsalah.R;
 import com.aaha.db.DBAdapter;
-import com.aaha.db.DBAdapter.Ramdhan;
+import com.aaha.db.DBAdapter.T_Ramdhan;
+import com.aaha.util.LogUtil;
 import com.aaha.util.Util;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
@@ -92,7 +93,7 @@ public class AddRamdhanDetails extends SherlockFragmentActivity implements
 
 		Date today = new Date();
 		if (date.compareTo(today) > 0) {
-			Util.Toast(getApplicationContext(),
+			LogUtil.toastShort(getApplicationContext(),
 					"Thanks for testing, Please select correct date");
 		} else {
 			selectDate.setText(Util.formatDate(date.getTime()));
@@ -110,7 +111,7 @@ public class AddRamdhanDetails extends SherlockFragmentActivity implements
 			try {
 				date = Util.parseDate(day + "/" + month + "/" + year);
 			} catch (Exception e) {
-				Util.Toast(getApplicationContext(),
+				LogUtil.toastShort(getApplicationContext(),
 						"Unknown exception occured while parsing date");
 			}
 			setDate(date);
@@ -133,16 +134,16 @@ public class AddRamdhanDetails extends SherlockFragmentActivity implements
 				if (c != null) {
 					c.moveToFirst();
 					siyam.setChecked((c.getInt(c
-							.getColumnIndex(Ramdhan.KEY_SIYAM)) == 1));
+							.getColumnIndex(T_Ramdhan.KEY_SIYAM)) == 1));
 					taraweeh.setChecked(c.getInt(c
-							.getColumnIndex(Ramdhan.KEY_TARAWEEH)) == 1);
+							.getColumnIndex(T_Ramdhan.KEY_TARAWEEH)) == 1);
 					quran.setChecked(c.getInt(c
-							.getColumnIndex(Ramdhan.KEY_QURAN)) == 1);
+							.getColumnIndex(T_Ramdhan.KEY_QURAN)) == 1);
 					quranJuz.setText(c.getString(c
-							.getColumnIndex(Ramdhan.KEY_QURAN_JUZ)));
+							.getColumnIndex(T_Ramdhan.KEY_QURAN_JUZ)));
 				}
 			} catch (Exception e) {
-				Util.Toast(
+				LogUtil.toastShort(
 						getApplicationContext(),
 						"Exception occured while loading existing details"
 								+ e.toString());
@@ -173,7 +174,7 @@ public class AddRamdhanDetails extends SherlockFragmentActivity implements
 				try {
 					qv = Float.parseFloat(juz);
 				} catch (NumberFormatException nfe) {
-					Util.Toast(getApplicationContext(),
+					LogUtil.toastShort(getApplicationContext(),
 							"Please enter number of Juz\'");
 					return;
 				}
@@ -196,9 +197,9 @@ public class AddRamdhanDetails extends SherlockFragmentActivity implements
 			int quran, float quranVolume) {
 
 		if (db.ramdhan.add(day, siyam, taraweeh, quran, quranVolume) > 0) {
-			Util.Toast(getApplicationContext(), "Details saved!");
+			LogUtil.toastShort(getApplicationContext(), "Details saved!");
 		} else {
-			Util.Toast(getApplicationContext(), "Error while saving details");
+			LogUtil.toastShort(getApplicationContext(), "Error while saving details");
 		}
 	}
 
@@ -206,9 +207,9 @@ public class AddRamdhanDetails extends SherlockFragmentActivity implements
 			int quran, float quranVolume) {
 
 		if (db.ramdhan.update(id, siyam, taraweeh, quran, quranVolume) > 0) {
-			Util.Toast(getApplicationContext(), "Details updated!");
+			LogUtil.toastShort(getApplicationContext(), "Details updated!");
 		} else {
-			Util.Toast(getApplicationContext(), "Error while updating details");
+			LogUtil.toastShort(getApplicationContext(), "Error while updating details");
 		}
 	}
 

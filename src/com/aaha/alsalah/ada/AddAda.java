@@ -19,7 +19,8 @@ import com.aaha.alsalah.settings.Settings;
 import com.aaha.alsalah.tasbeeh.TasbeehHome;
 import com.aaha.db.DBAdapter;
 import com.aaha.db.DBAdapter.PrayerType;
-import com.aaha.db.DBAdapter.Prayers;
+import com.aaha.db.DBAdapter.T_Prayers;
+import com.aaha.util.LogUtil;
 import com.aaha.util.Util;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
@@ -58,7 +59,7 @@ public class AddAda extends SherlockFragmentActivity implements OnClickListener 
 
 		Date today = new Date();
 		if (date.compareTo(today) > 0) {
-			Util.Toast(getApplicationContext(),
+			LogUtil.toastShort(getApplicationContext(),
 					"Thanks for testing, Please select correct date");
 		} else {
 			prayerDate.setText(Util.formatDate(date.getTime()));
@@ -76,7 +77,7 @@ public class AddAda extends SherlockFragmentActivity implements OnClickListener 
 			try {
 				date = Util.parseDate(day + "/" + month + "/" + year);
 			} catch (Exception e) {
-				Util.Toast(getApplicationContext(),
+				LogUtil.toastShort(getApplicationContext(),
 						"Unknown exception occured while parsing date");
 			}
 			setPrayerDate(date);
@@ -127,17 +128,17 @@ public class AddAda extends SherlockFragmentActivity implements OnClickListener 
 				if (c != null) {
 					c.moveToFirst();
 					fajr.setChecked((c.getInt(c
-							.getColumnIndex(Prayers.KEY_FAJR)) == 1));
+							.getColumnIndex(T_Prayers.KEY_FAJR)) == 1));
 					zohar.setChecked(c.getInt(c
-							.getColumnIndex(Prayers.KEY_ZOHAR)) == 1);
-					asr.setChecked(c.getInt(c.getColumnIndex(Prayers.KEY_ASR)) == 1);
+							.getColumnIndex(T_Prayers.KEY_ZOHAR)) == 1);
+					asr.setChecked(c.getInt(c.getColumnIndex(T_Prayers.KEY_ASR)) == 1);
 					magrib.setChecked(c.getInt(c
-							.getColumnIndex(Prayers.KEY_MAGRIB)) == 1);
-					isha.setChecked(c.getInt(c.getColumnIndex(Prayers.KEY_ISHA)) == 1);
+							.getColumnIndex(T_Prayers.KEY_MAGRIB)) == 1);
+					isha.setChecked(c.getInt(c.getColumnIndex(T_Prayers.KEY_ISHA)) == 1);
 
 				}
 			} catch (Exception e) {
-				Util.Toast(
+				LogUtil.toastShort(
 						getApplicationContext(),
 						"Exception occured while loading existing prayers"
 								+ e.toString());
@@ -153,18 +154,18 @@ public class AddAda extends SherlockFragmentActivity implements OnClickListener 
 
 		if (db.prayer.add(db.user.getActiveUserId(), day, f, z, a, m, i,
 				PrayerType.ADA) > 0) {
-			Util.Toast(getApplicationContext(), "Salah saved!");
+			LogUtil.toastShort(getApplicationContext(), "Salah saved!");
 		} else {
-			Util.Toast(getApplicationContext(), "Error while saving prayer");
+			LogUtil.toastShort(getApplicationContext(), "Error while saving prayer");
 		}
 	}
 
 	private void updatePrayer(long prayerId, int f, int z, int a, int m, int i) {
 
 		if (db.prayer.update(prayerId, f, z, a, m, i) > 0) {
-			Util.Toast(getApplicationContext(), "Salah updated!");
+			LogUtil.toastShort(getApplicationContext(), "Salah updated!");
 		} else {
-			Util.Toast(getApplicationContext(), "Error while updating prayer");
+			LogUtil.toastShort(getApplicationContext(), "Error while updating prayer");
 		}
 	}
 

@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.aaha.util.LogUtil;
 import com.aaha.util.Util;
 
 public class DBAdapter {
@@ -23,13 +24,13 @@ public class DBAdapter {
 	private final Context context;
 	private DatabaseHelper DBHelper;
 	public User user;
-	public Prayers prayer;
-	public Tasbeeh tasbeeh;
-	public TasbeehCount tasbeehCount;
-	public Notification notification;
-	public Qasr qasr;
-	public Ramdhan ramdhan;
-	public Menstruation menstruation;
+	public T_Prayers prayer;
+	public T_Tasbeeh tasbeeh;
+	public T_TasbeehCount tasbeehCount;
+	public T_Notification notification;
+	public T_Qasr qasr;
+	public T_Ramdhan ramdhan;
+	public T_Menstruation menstruation;
 	private SQLiteDatabase db;
 
 	public DBAdapter(Context ctx) {
@@ -37,13 +38,13 @@ public class DBAdapter {
 		DBHelper = new DatabaseHelper(context);
 
 		user = new User();
-		prayer = new Prayers();
-		tasbeeh = new Tasbeeh();
-		tasbeehCount = new TasbeehCount();
-		notification = new Notification();
-		qasr = new Qasr();
-		menstruation = new Menstruation();
-		ramdhan = new Ramdhan();
+		prayer = new T_Prayers();
+		tasbeeh = new T_Tasbeeh();
+		tasbeehCount = new T_TasbeehCount();
+		notification = new T_Notification();
+		qasr = new T_Qasr();
+		menstruation = new T_Menstruation();
+		ramdhan = new T_Ramdhan();
 	}
 
 	private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -59,27 +60,27 @@ public class DBAdapter {
 				db.execSQL(User.CREATE_SQL);
 				Log.d(TAG, "Finished creating database table: "
 						+ User.TABLE_NAME);
-				db.execSQL(Prayers.CREATE_SQL);
+				db.execSQL(T_Prayers.CREATE_SQL);
 				Log.d(TAG, "Finished creating database table: "
-						+ Prayers.TABLE_NAME);
-				db.execSQL(Tasbeeh.CREATE_SQL);
+						+ T_Prayers.TABLE_NAME);
+				db.execSQL(T_Tasbeeh.CREATE_SQL);
 				Log.d(TAG, "Finished creating database table: "
-						+ Tasbeeh.TABLE_NAME);
-				db.execSQL(TasbeehCount.CREATE_SQL);
+						+ T_Tasbeeh.TABLE_NAME);
+				db.execSQL(T_TasbeehCount.CREATE_SQL);
 				Log.d(TAG, "Finished creating database table: "
-						+ TasbeehCount.TABLE_NAME);
-				db.execSQL(Notification.CREATE_SQL);
+						+ T_TasbeehCount.TABLE_NAME);
+				db.execSQL(T_Notification.CREATE_SQL);
 				Log.d(TAG, "Finished creating database table: "
-						+ Notification.TABLE_NAME);
-				db.execSQL(Qasr.CREATE_SQL);
+						+ T_Notification.TABLE_NAME);
+				db.execSQL(T_Qasr.CREATE_SQL);
 				Log.d(TAG, "Finished creating database table: "
-						+ Qasr.TABLE_NAME);
-				db.execSQL(Menstruation.CREATE_SQL);
+						+ T_Qasr.TABLE_NAME);
+				db.execSQL(T_Menstruation.CREATE_SQL);
 				Log.d(TAG, "Finished creating database table: "
-						+ Menstruation.TABLE_NAME);
-				db.execSQL(Ramdhan.CREATE_SQL);
+						+ T_Menstruation.TABLE_NAME);
+				db.execSQL(T_Ramdhan.CREATE_SQL);
 				Log.d(TAG, "Finished creating database table: "
-						+ Ramdhan.TABLE_NAME);
+						+ T_Ramdhan.TABLE_NAME);
 			} catch (SQLException e) {
 				Log.e(TAG,
 						"Exception while creating database tables: "
@@ -337,7 +338,7 @@ public class DBAdapter {
 		}
 	}
 
-	public class Prayers {
+	public class T_Prayers {
 
 		public static final int ADA = 0;
 		public static final int QADHA = 1;
@@ -363,7 +364,7 @@ public class DBAdapter {
 				+ " INTEGER, " + KEY_TYPE + " INTEGER );";
 
 		public boolean delete(long prayerId) {
-			Util.e("Deleting prayer id: from DB: " + prayerId);
+			LogUtil.e("Deleting prayer id: from DB: " + prayerId);
 			return db.delete(TABLE_NAME, KEY_PRAYER_ID + "=?",
 					new String[] { String.valueOf(prayerId) }) > 0;
 		}
@@ -562,11 +563,11 @@ public class DBAdapter {
 		}
 
 		public Cursor getCounts(PrayerType type, long userId) {
-			String sql = "SELECT Sum(" + Prayers.KEY_FAJR + "), " + "Sum("
-					+ Prayers.KEY_ZOHAR + ")," + "Sum(" + Prayers.KEY_ASR
-					+ "), " + "Sum(" + Prayers.KEY_MAGRIB + "), " + "Sum("
-					+ Prayers.KEY_ISHA + ") FROM " + TABLE_NAME + " WHERE "
-					+ Prayers.KEY_TYPE + "=? AND " + Prayers.KEY_USER_ID + "=?";
+			String sql = "SELECT Sum(" + T_Prayers.KEY_FAJR + "), " + "Sum("
+					+ T_Prayers.KEY_ZOHAR + ")," + "Sum(" + T_Prayers.KEY_ASR
+					+ "), " + "Sum(" + T_Prayers.KEY_MAGRIB + "), " + "Sum("
+					+ T_Prayers.KEY_ISHA + ") FROM " + TABLE_NAME + " WHERE "
+					+ T_Prayers.KEY_TYPE + "=? AND " + T_Prayers.KEY_USER_ID + "=?";
 			return db.rawQuery(
 					sql,
 					new String[] { String.valueOf(type.getValue()),
@@ -574,7 +575,7 @@ public class DBAdapter {
 		}
 	}
 
-	public class Tasbeeh {
+	public class T_Tasbeeh {
 		public static final String TABLE_NAME = "Tasbeeh";
 		public static final String KEY_ID = "_id";
 		public static final String KEY_NAME = "name";
@@ -732,7 +733,7 @@ public class DBAdapter {
 		}
 	}
 
-	public class TasbeehCount {
+	public class T_TasbeehCount {
 		public static final String TABLE_NAME = "TasbeehCount";
 		public static final String KEY_ID = "_id";
 		public static final String KEY_USER_ID = "userid";
@@ -821,14 +822,14 @@ public class DBAdapter {
 
 		public Cursor getTasbeehCountToExport() {
 			String sql = "SELECT " + KEY_COUNT_OVERALL + ", "
-					+ Tasbeeh.KEY_NAME + " FROM " + TABLE_NAME + " tc, "
-					+ Tasbeeh.TABLE_NAME + " t WHERE tc." + KEY_TASBEEH_ID
-					+ "=t." + Tasbeeh.KEY_ID;
+					+ T_Tasbeeh.KEY_NAME + " FROM " + TABLE_NAME + " tc, "
+					+ T_Tasbeeh.TABLE_NAME + " t WHERE tc." + KEY_TASBEEH_ID
+					+ "=t." + T_Tasbeeh.KEY_ID;
 			return db.rawQuery(sql, null);
 		}
 	}
 
-	public class Notification {
+	public class T_Notification {
 		public static final String TABLE_NAME = "Notification";
 		public static final String KEY_ID = "_id";
 		public static final String KEY_NAME = "name";
@@ -905,7 +906,7 @@ public class DBAdapter {
 
 			int status = 0;
 			if (c.moveToFirst()) {
-				status = c.getInt(c.getColumnIndex(Notification.KEY_STATE));
+				status = c.getInt(c.getColumnIndex(T_Notification.KEY_STATE));
 				c.close();
 			}
 			return status == 1;
@@ -919,7 +920,7 @@ public class DBAdapter {
 			if (c != null) {
 
 				c.moveToFirst();
-				hour = c.getInt(c.getColumnIndex(Notification.KEY_HOUR));
+				hour = c.getInt(c.getColumnIndex(T_Notification.KEY_HOUR));
 				c.close();
 				return hour;
 			}
@@ -935,7 +936,7 @@ public class DBAdapter {
 
 			if (c != null) {
 				c.moveToFirst();
-				minute = c.getInt(c.getColumnIndex(Notification.KEY_MINUTE));
+				minute = c.getInt(c.getColumnIndex(T_Notification.KEY_MINUTE));
 				c.close();
 				return minute;
 			}
@@ -953,8 +954,8 @@ public class DBAdapter {
 			if (c != null) {
 
 				c.moveToFirst();
-				hour = c.getInt(c.getColumnIndex(Notification.KEY_HOUR));
-				minute = c.getInt(c.getColumnIndex(Notification.KEY_MINUTE));
+				hour = c.getInt(c.getColumnIndex(T_Notification.KEY_HOUR));
+				minute = c.getInt(c.getColumnIndex(T_Notification.KEY_MINUTE));
 				c.close();
 				return (Util.get12HourFormatDate(hour, minute));
 			}
@@ -969,7 +970,7 @@ public class DBAdapter {
 
 	}
 
-	public class Qasr {
+	public class T_Qasr {
 
 		public static final String TABLE_NAME = "Qasr";
 		public static final String KEY_ID = "_id";
@@ -991,7 +992,7 @@ public class DBAdapter {
 				+ " INTEGER, " + KEY_ISHA + " INTEGER );";
 
 		public boolean delete(long prayerId) {
-			Util.e("Deleting Qasr prayer id: " + prayerId);
+			LogUtil.e("Deleting Qasr prayer id: " + prayerId);
 			return db.delete(TABLE_NAME, KEY_PRAYER_ID + "=?",
 					new String[] { String.valueOf(prayerId) }) > 0;
 		}
@@ -1075,7 +1076,7 @@ public class DBAdapter {
 
 	}
 
-	public class Menstruation {
+	public class T_Menstruation {
 
 		public static final String TABLE_NAME = "Menstruation";
 		public static final String KEY_ID = "_id";
@@ -1097,7 +1098,7 @@ public class DBAdapter {
 				+ " INTEGER, " + KEY_ISHA + " INTEGER );";
 
 		public boolean delete(long prayerId) {
-			Util.e("Deleting Qasr prayer id: " + prayerId);
+			LogUtil.e("Deleting Qasr prayer id: " + prayerId);
 			return db.delete(TABLE_NAME, KEY_PRAYER_ID + "=?",
 					new String[] { String.valueOf(prayerId) }) > 0;
 		}
@@ -1168,12 +1169,12 @@ public class DBAdapter {
 		}
 
 		public Cursor getCounts(long userId) {
-			String sql = "SELECT Sum(" + Menstruation.KEY_FAJR + "), " + "Sum("
-					+ Menstruation.KEY_ZOHAR + ")," + "Sum("
-					+ Menstruation.KEY_ASR + "), " + "Sum("
-					+ Menstruation.KEY_MAGRIB + "), " + "Sum("
-					+ Menstruation.KEY_ISHA + ") FROM " + TABLE_NAME
-					+ " WHERE " + Menstruation.KEY_USER_ID + "=?";
+			String sql = "SELECT Sum(" + T_Menstruation.KEY_FAJR + "), " + "Sum("
+					+ T_Menstruation.KEY_ZOHAR + ")," + "Sum("
+					+ T_Menstruation.KEY_ASR + "), " + "Sum("
+					+ T_Menstruation.KEY_MAGRIB + "), " + "Sum("
+					+ T_Menstruation.KEY_ISHA + ") FROM " + TABLE_NAME
+					+ " WHERE " + T_Menstruation.KEY_USER_ID + "=?";
 			return db.rawQuery(sql, new String[] { String.valueOf(userId) });
 		}
 
@@ -1186,7 +1187,7 @@ public class DBAdapter {
 		}
 	}
 
-	public class Ramdhan {
+	public class T_Ramdhan {
 		public static final String TABLE_NAME = "Ramdhan";
 		public static final String KEY_ID = "_id";
 		public static final String KEY_DATE = "ramdhan_date";
@@ -1204,7 +1205,7 @@ public class DBAdapter {
 				+ " INTEGER, " + KEY_QURAN_JUZ + " DECIMAL );";
 
 		public boolean delete(long id) {
-			Util.e("Deleting ramdhan details id: " + id);
+			LogUtil.e("Deleting ramdhan details id: " + id);
 			return db.delete(TABLE_NAME, KEY_ID + "=?",
 					new String[] { String.valueOf(id) }) > 0;
 		}
@@ -1252,8 +1253,8 @@ public class DBAdapter {
 		}
 
 		public float getTotalQuranJuz() {
-			String sql = "SELECT Sum(" + Ramdhan.KEY_QURAN_JUZ + ") FROM "
-					+ Ramdhan.TABLE_NAME + " WHERE " + Ramdhan.KEY_USER_ID
+			String sql = "SELECT Sum(" + T_Ramdhan.KEY_QURAN_JUZ + ") FROM "
+					+ T_Ramdhan.TABLE_NAME + " WHERE " + T_Ramdhan.KEY_USER_ID
 					+ "=?";
 			Cursor c = db.rawQuery(sql,
 					new String[] { String.valueOf(user.getActiveUserId()) });
@@ -1289,7 +1290,7 @@ public class DBAdapter {
 			Cursor c = get(date);
 			long id = -1;
 			if (c != null && c.moveToFirst()) {
-				id = c.getLong(c.getColumnIndex(Ramdhan.KEY_ID));
+				id = c.getLong(c.getColumnIndex(T_Ramdhan.KEY_ID));
 				c.close();
 			}
 			return id;
@@ -1310,11 +1311,11 @@ public class DBAdapter {
 	}
 
 	public void dropTable() {
-		db.execSQL("DROP TABLE IF EXISTS " + Qasr.TABLE_NAME);
+		db.execSQL("DROP TABLE IF EXISTS " + T_Qasr.TABLE_NAME);
 	}
 
 	public void createTable() {
-		db.execSQL(Qasr.CREATE_SQL);
+		db.execSQL(T_Qasr.CREATE_SQL);
 	}
 
 	public DBAdapter open() throws SQLException {
@@ -1326,7 +1327,7 @@ public class DBAdapter {
 		try {
 			DBHelper.close();
 		} catch (Exception e) {
-			Util.e("Exception occurred: " + e);
+			LogUtil.e("Exception occurred: " + e);
 		}
 	}
 }

@@ -1,12 +1,12 @@
 package com.aaha.alsalah.notification;
 
-import com.aaha.db.DBAdapter;
-import com.aaha.util.Alarm;
-import com.aaha.util.Util;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
+import com.aaha.db.DBAdapter;
+import com.aaha.util.Alarm;
+import com.aaha.util.LogUtil;
 
 public class ScheduleAlarm extends BroadcastReceiver {
 
@@ -25,7 +25,8 @@ public class ScheduleAlarm extends BroadcastReceiver {
 				db.open();
 				Alarm.enablePrayerReminders(context, db);
 			} catch (Exception e) {
-				Util.Toast(context, "Exception occured while setting alarms", e);
+				LogUtil.toastShort(context,
+						"Exception occured while setting alarms", e);
 			} finally {
 				db.close();
 			}

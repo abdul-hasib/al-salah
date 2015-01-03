@@ -15,6 +15,7 @@ import com.aaha.alsalah.Home;
 import com.aaha.alsalah.R;
 import com.aaha.db.DBAdapter;
 import com.aaha.util.Alarm;
+import com.aaha.util.LogUtil;
 import com.aaha.util.Util;
 
 public class Login extends Activity implements OnClickListener {
@@ -40,6 +41,17 @@ public class Login extends Activity implements OnClickListener {
 		ePassword = (EditText) findViewById(R.id.passwordText);
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// once the registration is complete
+		// let it auto login with the registered user
+		int userId = db.user.getActiveUserId();
+		if (userId > -1) {
+			startHomePage();
+		}
+	}
+
 	public boolean login(String username, String password) {
 
 		if (!validateFields(username, password)) {
@@ -51,10 +63,11 @@ public class Login extends Activity implements OnClickListener {
 
 			if (userId > -1) {
 				if (!db.user.setActiveUserId(userId)) {
-					Util.Toast(getApplicationContext(),
+					LogUtil.toastShort(getApplicationContext(),
 							"Error occured while remembering user");
 				}
-				Util.Toast(getApplicationContext(), "Welcome " + username);
+				LogUtil.toastShort(getApplicationContext(), "Welcome "
+						+ username);
 				// Settings.putPref(Settings.PREF_PROFILE_USERNAME, username,
 				// getApplicationContext());
 				// Settings.putPref(Settings.PREF_PROFILE_PASSWORD, password,
@@ -62,14 +75,14 @@ public class Login extends Activity implements OnClickListener {
 				return true;
 
 			} else {
-				Util.Toast(getApplicationContext(),
+				LogUtil.toastShort(getApplicationContext(),
 						"Invalid username or password");
 			}
 		} catch (Exception e) {
 			Toast.makeText(getApplicationContext(),
 					"Exception occured while authenticating" + e.toString(),
 					Toast.LENGTH_LONG).show();
-			Util.e("Exception occured: " + e.toString());
+			LogUtil.e("Exception occured: " + e.toString());
 		}
 		return false;
 
@@ -96,6 +109,20 @@ public class Login extends Activity implements OnClickListener {
 		super.onDestroy();
 	}
 
+	private void startHomePage() {
+		Intent i = new Intent(this, Home.class);
+
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			if (extras.getBoolean(Alarm.REDIRECT, false)) {
+				i.putExtra(Alarm.REDIRECT, true);
+			}
+		}
+
+		startActivity(i);
+		finish();
+	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -104,18 +131,7 @@ public class Login extends Activity implements OnClickListener {
 					eUsername.getText().toString().trim()
 							.toLowerCase(Locale.ENGLISH), ePassword.getText()
 							.toString())) {
-
-				Intent i = new Intent(this, Home.class);
-
-				Bundle extras = getIntent().getExtras();
-				if (extras != null) {
-					if (extras.getBoolean(Alarm.REDIRECT, false)) {
-						i.putExtra(Alarm.REDIRECT, true);
-					}
-				}
-
-				startActivity(i);
-				finish();
+				startHomePage();
 			}
 			break;
 		case R.id.registerButton:
@@ -123,7 +139,5 @@ public class Login extends Activity implements OnClickListener {
 			startActivity(i);
 			break;
 		}
-
 	}
-
 }

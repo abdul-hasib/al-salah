@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.aaha.alsalah.R;
 import com.aaha.db.DBAdapter;
 import com.aaha.db.DBAdapter.PrayerType;
+import com.aaha.util.LogUtil;
 import com.aaha.util.Util;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
@@ -55,7 +56,7 @@ public class Register extends SherlockFragmentActivity implements
 
 		Date today = new Date();
 		if (date.compareTo(today) > 0) {
-			Util.Toast(getApplicationContext(),
+			LogUtil.toastShort(getApplicationContext(),
 					"Thanks for testing, Please select the correct date or birth");
 		} else {
 			bSelectDate.setText(Util.formatDate(date.getTime()));
@@ -72,7 +73,7 @@ public class Register extends SherlockFragmentActivity implements
 			try {
 				date = Util.parseDate(day + "/" + month + "/" + year);
 			} catch (Exception e) {
-				Util.Toast(getApplicationContext(),
+				LogUtil.toastShort(getApplicationContext(),
 						"Unknown exception occured while parsing date");
 			}
 			setDateOfBirth(date);
@@ -106,7 +107,8 @@ public class Register extends SherlockFragmentActivity implements
 					db.prayer.add(userId,
 							Util.formatDate((new Date()).getTime()), 0, 0, 0,
 							0, 0, PrayerType.ADA);
-					Util.Toast(Register.this, "Assalamualaikum "
+					db.user.setActiveUserId(userId);
+					LogUtil.toastLong(Register.this, "Assalamualaikum "
 							+ eUsername.getText().toString().trim()
 							+ ", Your profile is created. Please login");
 
@@ -125,22 +127,24 @@ public class Register extends SherlockFragmentActivity implements
 
 	private boolean validateFields(String username, String password, String dob) {
 		if (Util.isEmptyString(username)) {
-			Util.Toast(getApplicationContext(), "Please enter username");
+			LogUtil.toastShort(getApplicationContext(), "Please enter username");
 			return false;
 		}
 
 		if (Util.isEmptyString(password)) {
-			Util.Toast(getApplicationContext(), "Please enter password");
+			LogUtil.toastShort(getApplicationContext(), "Please enter password");
 			return false;
 		}
 
 		if (dob.equalsIgnoreCase(getResources().getString(R.string.dob))) {
-			Util.Toast(getApplicationContext(), "Please select date of birth");
+			LogUtil.toastShort(getApplicationContext(),
+					"Please select date of birth");
 			return false;
 		}
 
 		if (sPubAgeSpinner.getSelectedItemPosition() == 0) {
-			Util.Toast(getApplicationContext(), "Please select pubert age");
+			LogUtil.toastShort(getApplicationContext(),
+					"Please select pubert age");
 			return false;
 		}
 

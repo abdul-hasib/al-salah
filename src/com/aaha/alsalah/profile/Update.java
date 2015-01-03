@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import com.aaha.alsalah.R;
 import com.aaha.db.DBAdapter;
 import com.aaha.db.DBAdapter.User;
+import com.aaha.util.LogUtil;
 import com.aaha.util.Util;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
@@ -57,7 +58,7 @@ public class Update extends SherlockFragmentActivity implements OnClickListener 
 
 		mCursor = db.user.get();
 		if (mCursor == null) {
-			Util.Toast(getApplicationContext(),
+			LogUtil.toastShort(getApplicationContext(),
 					"Error occurred while loading user profile");
 			return;
 
@@ -85,7 +86,7 @@ public class Update extends SherlockFragmentActivity implements OnClickListener 
 
 		Date today = new Date();
 		if (date.compareTo(today) > 0) {
-			Util.Toast(getApplicationContext(),
+			LogUtil.toastShort(getApplicationContext(),
 					"Thanks for testing, Please select the correct date or birth");
 		} else {
 			bSelectDate.setText(Util.formatDate(date.getTime()));
@@ -102,7 +103,7 @@ public class Update extends SherlockFragmentActivity implements OnClickListener 
 			try {
 				date = Util.parseDate(day + "/" + month + "/" + year);
 			} catch (Exception e) {
-				Util.Toast(getApplicationContext(),
+				LogUtil.toastShort(getApplicationContext(),
 						"Unknown exception occured while parsing date");
 			}
 			setDateOfBirth(date);
@@ -124,7 +125,7 @@ public class Update extends SherlockFragmentActivity implements OnClickListener 
 			if (validateFields(username, password, dob)) {
 				db.user.updateUser(db.user.getActiveUserId(), username, dob,
 						pubAge, password);
-				Util.Toast(Update.this, username + ", your profile is updated");
+				LogUtil.toastShort(Update.this, username + ", your profile is updated");
 				super.finish();
 			}
 			break;
@@ -139,22 +140,22 @@ public class Update extends SherlockFragmentActivity implements OnClickListener 
 
 	private boolean validateFields(String username, String password, String dob) {
 		if (Util.isEmptyString(username)) {
-			Util.Toast(getApplicationContext(), "Please enter username");
+			LogUtil.toastShort(getApplicationContext(), "Please enter username");
 			return false;
 		}
 
 		if (Util.isEmptyString(password)) {
-			Util.Toast(getApplicationContext(), "Please enter password");
+			LogUtil.toastShort(getApplicationContext(), "Please enter password");
 			return false;
 		}
 
 		if (dob.equalsIgnoreCase(getResources().getString(R.string.dob))) {
-			Util.Toast(getApplicationContext(), "Please select date of birth");
+			LogUtil.toastShort(getApplicationContext(), "Please select date of birth");
 			return false;
 		}
 
 		if (sPubAgeSpinner.getSelectedItemPosition() == 0) {
-			Util.Toast(getApplicationContext(), "Please select pubert age");
+			LogUtil.toastShort(getApplicationContext(), "Please select pubert age");
 			return false;
 		}
 

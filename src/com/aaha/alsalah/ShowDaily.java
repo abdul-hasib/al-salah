@@ -26,12 +26,13 @@ import com.aaha.alsalah.ada.AddAda;
 import com.aaha.alsalah.ada.EditAda;
 import com.aaha.alsalah.additional.AddSalah;
 import com.aaha.alsalah.additional.EditSalah;
-import com.aaha.alsalah.menstruation.SetMenstruation;
-import com.aaha.alsalah.qasr.SetQasr;
+import com.aaha.alsalah.menstruation.Menstruation;
+import com.aaha.alsalah.qasr.Qasr;
 import com.aaha.alsalah.settings.Settings;
 import com.aaha.db.DBAdapter;
 import com.aaha.db.DBAdapter.PrayerType;
-import com.aaha.db.DBAdapter.Prayers;
+import com.aaha.db.DBAdapter.T_Prayers;
+import com.aaha.util.LogUtil;
 import com.aaha.util.Salah;
 import com.aaha.util.Util;
 import com.actionbarsherlock.app.SherlockFragment;
@@ -76,7 +77,7 @@ public class ShowDaily extends SherlockFragment implements OnClickListener {
 			loadRecentPrayers();
 		} catch (Exception e) {
 			e.printStackTrace();
-			Util.Toast(getActivity(), "Exception occurred:" + e);
+			LogUtil.toastShort(getActivity(), "Exception occurred:" + e);
 		}
 	}
 
@@ -117,7 +118,7 @@ public class ShowDaily extends SherlockFragment implements OnClickListener {
 					getActivity().getApplicationContext(), 0);
 		} catch (Exception e) {
 			e.printStackTrace();
-			Util.Toast(getActivity(), "Exception while retrieving limit:" + e);
+			LogUtil.toastShort(getActivity(), "Exception while retrieving limit:" + e);
 		}
 
 		boolean hidePerfectDays = false;
@@ -127,7 +128,7 @@ public class ShowDaily extends SherlockFragment implements OnClickListener {
 							.getApplicationContext(), false);
 		} catch (Exception e) {
 			e.printStackTrace();
-			Util.Toast(getActivity(),
+			LogUtil.toastShort(getActivity(),
 					"Exception while retrieving perfect day settings:" + e);
 		}
 
@@ -138,9 +139,9 @@ public class ShowDaily extends SherlockFragment implements OnClickListener {
 			mCursor = db.prayer.getPrayers(PrayerType.ADA, hidePerfectDays);
 		}
 
-		String[] databaseColumnNames = new String[] { Prayers.KEY_DATE,
-				Prayers.KEY_FAJR, Prayers.KEY_ZOHAR, Prayers.KEY_ASR,
-				Prayers.KEY_MAGRIB, Prayers.KEY_ISHA };
+		String[] databaseColumnNames = new String[] { T_Prayers.KEY_DATE,
+				T_Prayers.KEY_FAJR, T_Prayers.KEY_ZOHAR, T_Prayers.KEY_ASR,
+				T_Prayers.KEY_MAGRIB, T_Prayers.KEY_ISHA };
 
 		int[] toViewIDs = new int[] { R.id.item_date, R.id.item_fajr,
 				R.id.item_zohar, R.id.item_asr, R.id.item_magrib,
@@ -156,10 +157,10 @@ public class ShowDaily extends SherlockFragment implements OnClickListener {
 					int columnIndex) {
 
 				long date = cursor.getLong(cursor
-						.getColumnIndex(Prayers.KEY_DATE));
+						.getColumnIndex(T_Prayers.KEY_DATE));
 
 				if (cursor.getColumnName(columnIndex).equalsIgnoreCase(
-						Prayers.KEY_DATE)) {
+						T_Prayers.KEY_DATE)) {
 
 					((TextView) view).setText(Util.formatDate(date * 1000));
 
@@ -218,7 +219,7 @@ public class ShowDaily extends SherlockFragment implements OnClickListener {
 	private int getQadhaPrayerCount(View view, Cursor cursor) {
 		int qadhaPrayerCount = 0;
 
-		long date = cursor.getLong(cursor.getColumnIndex(Prayers.KEY_DATE));
+		long date = cursor.getLong(cursor.getColumnIndex(T_Prayers.KEY_DATE));
 
 		Cursor c = db.prayer
 				.get(Util.formatDate(date * 1000), PrayerType.QADHA);
@@ -228,23 +229,23 @@ public class ShowDaily extends SherlockFragment implements OnClickListener {
 				switch (view.getId()) {
 				case R.id.item_fajr:
 					qadhaPrayerCount = c.getInt(c
-							.getColumnIndex(Prayers.KEY_FAJR));
+							.getColumnIndex(T_Prayers.KEY_FAJR));
 					break;
 				case R.id.item_zohar:
 					qadhaPrayerCount = c.getInt(c
-							.getColumnIndex(Prayers.KEY_ZOHAR));
+							.getColumnIndex(T_Prayers.KEY_ZOHAR));
 					break;
 				case R.id.item_asr:
 					qadhaPrayerCount = c.getInt(c
-							.getColumnIndex(Prayers.KEY_ASR));
+							.getColumnIndex(T_Prayers.KEY_ASR));
 					break;
 				case R.id.item_magrib:
 					qadhaPrayerCount = c.getInt(c
-							.getColumnIndex(Prayers.KEY_MAGRIB));
+							.getColumnIndex(T_Prayers.KEY_MAGRIB));
 					break;
 				case R.id.item_isha:
 					qadhaPrayerCount = c.getInt(c
-							.getColumnIndex(Prayers.KEY_ISHA));
+							.getColumnIndex(T_Prayers.KEY_ISHA));
 					break;
 				}
 			}
@@ -257,7 +258,7 @@ public class ShowDaily extends SherlockFragment implements OnClickListener {
 		boolean isQasrPrayer = false;
 
 		long prayerId = cursor.getLong(cursor
-				.getColumnIndex(Prayers.KEY_PRAYER_ID));
+				.getColumnIndex(T_Prayers.KEY_PRAYER_ID));
 
 		Cursor c = db.qasr.get(prayerId);
 
@@ -265,21 +266,21 @@ public class ShowDaily extends SherlockFragment implements OnClickListener {
 			if (c.moveToFirst()) {
 				switch (view.getId()) {
 				case R.id.item_fajr:
-					isQasrPrayer = c.getInt(c.getColumnIndex(Prayers.KEY_FAJR)) == 1;
+					isQasrPrayer = c.getInt(c.getColumnIndex(T_Prayers.KEY_FAJR)) == 1;
 					break;
 				case R.id.item_zohar:
 					isQasrPrayer = c
-							.getInt(c.getColumnIndex(Prayers.KEY_ZOHAR)) == 1;
+							.getInt(c.getColumnIndex(T_Prayers.KEY_ZOHAR)) == 1;
 					break;
 				case R.id.item_asr:
-					isQasrPrayer = c.getInt(c.getColumnIndex(Prayers.KEY_ASR)) == 1;
+					isQasrPrayer = c.getInt(c.getColumnIndex(T_Prayers.KEY_ASR)) == 1;
 					break;
 				case R.id.item_magrib:
 					isQasrPrayer = c.getInt(c
-							.getColumnIndex(Prayers.KEY_MAGRIB)) == 1;
+							.getColumnIndex(T_Prayers.KEY_MAGRIB)) == 1;
 					break;
 				case R.id.item_isha:
-					isQasrPrayer = c.getInt(c.getColumnIndex(Prayers.KEY_ISHA)) == 1;
+					isQasrPrayer = c.getInt(c.getColumnIndex(T_Prayers.KEY_ISHA)) == 1;
 					break;
 				}
 			}
@@ -299,7 +300,7 @@ public class ShowDaily extends SherlockFragment implements OnClickListener {
 		boolean isExcusedPrayer = false;
 
 		long prayerId = cursor.getLong(cursor
-				.getColumnIndex(Prayers.KEY_PRAYER_ID));
+				.getColumnIndex(T_Prayers.KEY_PRAYER_ID));
 
 		Cursor c = db.menstruation.get(prayerId);
 
@@ -308,23 +309,23 @@ public class ShowDaily extends SherlockFragment implements OnClickListener {
 				switch (view.getId()) {
 				case R.id.item_fajr:
 					isExcusedPrayer = c.getInt(c
-							.getColumnIndex(Prayers.KEY_FAJR)) == 1;
+							.getColumnIndex(T_Prayers.KEY_FAJR)) == 1;
 					break;
 				case R.id.item_zohar:
 					isExcusedPrayer = c.getInt(c
-							.getColumnIndex(Prayers.KEY_ZOHAR)) == 1;
+							.getColumnIndex(T_Prayers.KEY_ZOHAR)) == 1;
 					break;
 				case R.id.item_asr:
 					isExcusedPrayer = c.getInt(c
-							.getColumnIndex(Prayers.KEY_ASR)) == 1;
+							.getColumnIndex(T_Prayers.KEY_ASR)) == 1;
 					break;
 				case R.id.item_magrib:
 					isExcusedPrayer = c.getInt(c
-							.getColumnIndex(Prayers.KEY_MAGRIB)) == 1;
+							.getColumnIndex(T_Prayers.KEY_MAGRIB)) == 1;
 					break;
 				case R.id.item_isha:
 					isExcusedPrayer = c.getInt(c
-							.getColumnIndex(Prayers.KEY_ISHA)) == 1;
+							.getColumnIndex(T_Prayers.KEY_ISHA)) == 1;
 					break;
 				}
 			}
@@ -362,12 +363,12 @@ public class ShowDaily extends SherlockFragment implements OnClickListener {
 			startActivity(i);
 			break;
 		case R.id.menu_qasr:
-			i = new Intent(getActivity(), SetQasr.class);
+			i = new Intent(getActivity(), Qasr.class);
 			i.putExtra(Salah.PRAYER_ID, menuInfo.id);
 			startActivity(i);
 			break;
 		case R.id.menu_menstruation:
-			i = new Intent(getActivity(), SetMenstruation.class);
+			i = new Intent(getActivity(), Menstruation.class);
 			i.putExtra(Salah.PRAYER_ID, menuInfo.id);
 			startActivity(i);
 			break;

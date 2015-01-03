@@ -46,9 +46,9 @@
         <activity android:name=".ramdhan.AddRamdhanDetails" />
         <activity android:name=".ramdhan.EditRamdhanDetails" />
         <activity android:name=".backup.BackupRestore" />
-        <activity android:name=".qasr.SetQasr" />
+        <activity android:name=".qasr.Qasr" />
         <activity android:name=".notification.PrayerReminder" />
-        <activity android:name=".menstruation.SetMenstruation" />
+        <activity android:name=".menstruation.Menstruation" />
         <activity android:name=".settings.Settings" />
 
         <receiver android:name=".notification.ScheduleAlarm" >

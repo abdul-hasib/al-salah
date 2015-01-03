@@ -17,8 +17,9 @@ import android.widget.Toast;
 
 import com.aaha.alsalah.R;
 import com.aaha.db.DBAdapter;
-import com.aaha.db.DBAdapter.Tasbeeh;
-import com.aaha.db.DBAdapter.TasbeehCount;
+import com.aaha.db.DBAdapter.T_Tasbeeh;
+import com.aaha.db.DBAdapter.T_TasbeehCount;
+import com.aaha.util.LogUtil;
 import com.aaha.util.Util;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
@@ -58,7 +59,7 @@ public class Zikr extends SherlockFragmentActivity {
 			loadTasbeeh(tasbeehId);
 			loadTasbeehCount(tasbeehId);
 		} catch (Exception e) {
-			Util.Toast(getApplicationContext(),
+			LogUtil.toastShort(getApplicationContext(),
 					"Error occureed while loading Tasbeeh: " + e);
 			e.printStackTrace();
 		}
@@ -67,17 +68,17 @@ public class Zikr extends SherlockFragmentActivity {
 	private void loadTasbeeh(long tasbeehId) {
 		Cursor mCursor = db.tasbeeh.getTasbeeh(tasbeehId);
 		if (mCursor == null) {
-			Util.Toast(getApplicationContext(),
+			LogUtil.toastShort(getApplicationContext(),
 					"Error occured while loading tasbeeh, please try again");
 		} else {
 			if (mCursor.moveToFirst()) {
 				txtTasbeeh.setText(mCursor.getString(mCursor
-						.getColumnIndex(Tasbeeh.KEY_TASBEEH)));
+						.getColumnIndex(T_Tasbeeh.KEY_TASBEEH)));
 				txtMeaning.setText(mCursor.getString(mCursor
-						.getColumnIndex(Tasbeeh.KEY_MEANING)));
+						.getColumnIndex(T_Tasbeeh.KEY_MEANING)));
 
 				defaultCount = mCursor.getInt(mCursor
-						.getColumnIndex(Tasbeeh.KEY_DEFAULT_COUNT));
+						.getColumnIndex(T_Tasbeeh.KEY_DEFAULT_COUNT));
 				progressBar.setMax(defaultCount);
 			}
 			mCursor.close();
@@ -93,16 +94,16 @@ public class Zikr extends SherlockFragmentActivity {
 		if (mCursor.moveToFirst()) {
 			String today = Util.formatDate((new Date()).getTime());
 			String day = mCursor.getString(mCursor
-					.getColumnIndex(TasbeehCount.KEY_DATE));
+					.getColumnIndex(T_TasbeehCount.KEY_DATE));
 			if (day.equals(today)) {
 				todaysCount = mCursor.getInt(mCursor
-						.getColumnIndex(TasbeehCount.KEY_COUNT_TODAY));
+						.getColumnIndex(T_TasbeehCount.KEY_COUNT_TODAY));
 			} else {
 				todaysCount = 0;
 			}
 
 			overallCount = mCursor.getInt(mCursor
-					.getColumnIndex(TasbeehCount.KEY_COUNT_OVERALL));
+					.getColumnIndex(T_TasbeehCount.KEY_COUNT_OVERALL));
 
 			txtTodaysCount.setText(String.valueOf(todaysCount));
 			txtOverallCount.setText(String.valueOf(overallCount));
@@ -138,7 +139,7 @@ public class Zikr extends SherlockFragmentActivity {
 		mCursor = null;
 		mCursor = db.tasbeehCount.get(tasbeehId);
 		if (mCursor == null) {
-			Util.Toast(getApplicationContext(),
+			LogUtil.toastShort(getApplicationContext(),
 					"Error occurred while saving tasbeeh");
 			return;
 		}

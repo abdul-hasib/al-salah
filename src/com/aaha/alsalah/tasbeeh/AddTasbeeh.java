@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.aaha.alsalah.R;
 import com.aaha.db.DBAdapter;
-import com.aaha.util.Util;
+import com.aaha.util.LogUtil;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 public class AddTasbeeh extends SherlockFragmentActivity implements
@@ -50,18 +50,19 @@ public class AddTasbeeh extends SherlockFragmentActivity implements
 	private void addTasbeeh() {
 		String name = tasbeehName.getText().toString().trim();
 		if (name.length() == 0) {
-			Util.Toast(getApplicationContext(), "Please enter Tasbeeh name");
+			LogUtil.toastShort(getApplicationContext(),
+					"Please enter Tasbeeh name");
 			return;
 		}
 
 		if (db.tasbeeh.isTasbeehExist(name) > -1) {
-			Util.Toast(getApplicationContext(), "Tasbeeh already exist");
+			LogUtil.toastShort(getApplicationContext(), "Tasbeeh already exist");
 			return;
 		}
 
 		String tasbeeh = tasbeehField.getText().toString().trim();
 		if (tasbeeh.length() == 0) {
-			Util.Toast(getApplicationContext(), "Please enter Tasbeeh ");
+			LogUtil.toastShort(getApplicationContext(), "Please enter Tasbeeh ");
 			return;
 		}
 
@@ -69,13 +70,13 @@ public class AddTasbeeh extends SherlockFragmentActivity implements
 		try {
 			count = Integer.valueOf(tasbeehCount.getText().toString().trim());
 		} catch (Exception e) {
-			Util.Toast(getApplicationContext(),
+			LogUtil.toastShort(getApplicationContext(),
 					"Please enter default Tasbeeh count");
 			return;
 		}
 
 		if (count == 0) {
-			Util.Toast(getApplicationContext(),
+			LogUtil.toastShort(getApplicationContext(),
 					"Please enter default Tasbeeh count");
 			return;
 		}
@@ -93,10 +94,10 @@ public class AddTasbeeh extends SherlockFragmentActivity implements
 		int order = db.tasbeeh.getMaxTasbeehOrder() + 1;
 
 		if (db.tasbeeh.add(name, tasbeeh, meaning, count, notes, order) > -1) {
-			Util.Toast(getApplicationContext(), "Tasbeeh added!!!");
+			LogUtil.toastShort(getApplicationContext(), "Tasbeeh added!!!");
 			super.finish();
 		} else {
-			Util.Toast(getApplicationContext(), "Add failed!!!");
+			LogUtil.toastShort(getApplicationContext(), "Add failed!!!");
 		}
 
 	}

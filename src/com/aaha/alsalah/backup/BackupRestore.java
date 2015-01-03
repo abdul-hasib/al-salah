@@ -29,15 +29,16 @@ import android.widget.TextView;
 
 import com.aaha.alsalah.R;
 import com.aaha.db.DBAdapter;
-import com.aaha.db.DBAdapter.Menstruation;
+import com.aaha.db.DBAdapter.T_Menstruation;
 import com.aaha.db.DBAdapter.PrayerType;
-import com.aaha.db.DBAdapter.Prayers;
-import com.aaha.db.DBAdapter.Qasr;
-import com.aaha.db.DBAdapter.Ramdhan;
-import com.aaha.db.DBAdapter.Tasbeeh;
-import com.aaha.db.DBAdapter.TasbeehCount;
+import com.aaha.db.DBAdapter.T_Prayers;
+import com.aaha.db.DBAdapter.T_Qasr;
+import com.aaha.db.DBAdapter.T_Ramdhan;
+import com.aaha.db.DBAdapter.T_Tasbeeh;
+import com.aaha.db.DBAdapter.T_TasbeehCount;
 import com.aaha.db.DBAdapter.User;
 import com.aaha.db.DatabaseBackupAssistant;
+import com.aaha.util.LogUtil;
 import com.aaha.util.Util;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
@@ -77,7 +78,7 @@ public class BackupRestore extends SherlockFragmentActivity implements
 						.getColumnIndex(User.KEY_NAME));
 			}
 		} catch (Exception e) {
-			Util.Toast(getApplicationContext(),
+			LogUtil.toastShort(getApplicationContext(),
 					"Error occurred while retrieving username");
 			e.printStackTrace();
 		} finally {
@@ -106,26 +107,26 @@ public class BackupRestore extends SherlockFragmentActivity implements
 			NodeList nTableNodes = doc.getElementsByTagName("table");
 
 			Node nPrayersTableNode = getChildNode(nTableNodes,
-					Prayers.TABLE_NAME);
+					T_Prayers.TABLE_NAME);
 			importDataIntoTables(nPrayersTableNode);
 
 			Node nTasbeehTableNode = getChildNode(nTableNodes,
-					Tasbeeh.TABLE_NAME);
+					T_Tasbeeh.TABLE_NAME);
 			importDataIntoTables(nTasbeehTableNode);
 
 			Node nTasbeehCountTableNode = getChildNode(nTableNodes,
-					TasbeehCount.TABLE_NAME);
+					T_TasbeehCount.TABLE_NAME);
 			importDataIntoTables(nTasbeehCountTableNode);
 
-			Node nQasrTableNode = getChildNode(nTableNodes, Qasr.TABLE_NAME);
+			Node nQasrTableNode = getChildNode(nTableNodes, T_Qasr.TABLE_NAME);
 			importDataIntoTables(nQasrTableNode);
 
 			Node nMenstruationTableNode = getChildNode(nTableNodes,
-					Menstruation.TABLE_NAME);
+					T_Menstruation.TABLE_NAME);
 			importDataIntoTables(nMenstruationTableNode);
 
 			Node nRamdhanTableNode = getChildNode(nTableNodes,
-					Ramdhan.TABLE_NAME);
+					T_Ramdhan.TABLE_NAME);
 			importDataIntoTables(nRamdhanTableNode);
 
 			return 0;
@@ -176,16 +177,16 @@ public class BackupRestore extends SherlockFragmentActivity implements
 			Node nRowNode = nRowNodes.item(row);
 			Map<String, String> rowData = getRowData(nRowNode);
 
-			if (tableName.equalsIgnoreCase(Prayers.TABLE_NAME)) {
+			if (tableName.equalsIgnoreCase(T_Prayers.TABLE_NAME)) {
 				long userId = db.user.getActiveUserId();
-				String prayerDate = rowData.get(Prayers.KEY_DATE);
-				int fajr = getRowDataValue(rowData, Prayers.KEY_FAJR);
-				int zohar = getRowDataValue(rowData, Prayers.KEY_ZOHAR);
+				String prayerDate = rowData.get(T_Prayers.KEY_DATE);
+				int fajr = getRowDataValue(rowData, T_Prayers.KEY_FAJR);
+				int zohar = getRowDataValue(rowData, T_Prayers.KEY_ZOHAR);
 				PrayerType type = Util.getPrayerType(getRowDataValue(rowData,
-						Prayers.KEY_TYPE));
-				int isha = getRowDataValue(rowData, Prayers.KEY_ISHA);
-				int magrib = getRowDataValue(rowData, Prayers.KEY_MAGRIB);
-				int asr = getRowDataValue(rowData, Prayers.KEY_ASR);
+						T_Prayers.KEY_TYPE));
+				int isha = getRowDataValue(rowData, T_Prayers.KEY_ISHA);
+				int magrib = getRowDataValue(rowData, T_Prayers.KEY_MAGRIB);
+				int asr = getRowDataValue(rowData, T_Prayers.KEY_ASR);
 
 				long prayerId = db.prayer.isExist(prayerDate, type);
 				if (prayerId == -1) {
@@ -194,47 +195,40 @@ public class BackupRestore extends SherlockFragmentActivity implements
 				} else {
 					db.prayer.update(prayerId, fajr, zohar, asr, magrib, isha);
 				}
-			}
+			} else if (tableName.equalsIgnoreCase(T_Qasr.TABLE_NAME)) {
+				String prayerDate = rowData.get(T_Qasr.KEY_DATE);
+				int fajr = Integer.valueOf(rowData.get(T_Qasr.KEY_FAJR));
+				int zohar = Integer.valueOf(rowData.get(T_Qasr.KEY_ZOHAR));
+				int isha = Integer.valueOf(rowData.get(T_Qasr.KEY_ISHA));
+				int magrib = Integer.valueOf(rowData.get(T_Qasr.KEY_MAGRIB));
+				int asr = Integer.valueOf(rowData.get(T_Qasr.KEY_ASR));
 
-			if (tableName.equalsIgnoreCase(Qasr.TABLE_NAME)) {
-				String prayerDate = rowData.get(Qasr.KEY_DATE);
-				int fajr = Integer.valueOf(rowData.get(Qasr.KEY_FAJR));
-				int zohar = Integer.valueOf(rowData.get(Qasr.KEY_ZOHAR));
-				int isha = Integer.valueOf(rowData.get(Qasr.KEY_ISHA));
-				int magrib = Integer.valueOf(rowData.get(Qasr.KEY_MAGRIB));
-				int asr = Integer.valueOf(rowData.get(Qasr.KEY_ASR));
-
-				long prayerId = db.prayer.isExist(prayerDate);
-
+				long prayerId = db.prayer.isExist(prayerDate, PrayerType.ADA);
 				if (prayerId != -1) {
 					// if prayer exists, get qasr prayer id
 					if (db.qasr.isExist(prayerId)) {
 						// if the qasr salah is found in table -- update
 						db.qasr.update(prayerId, fajr, zohar, asr, magrib, isha);
 					} else {
-						// if not found -- add new entry
+						// if qasr salah is not found -- add new entry
 						db.qasr.add(prayerId, prayerDate, fajr, zohar, asr,
 								magrib, isha);
 					}
 				}
-
-			}
-
-			if (tableName.equalsIgnoreCase(Menstruation.TABLE_NAME)) {
-				String prayerDate = rowData.get(Menstruation.KEY_DATE);
-				int fajr = getRowDataValue(rowData, Menstruation.KEY_FAJR);
-				int zohar = getRowDataValue(rowData, Menstruation.KEY_ZOHAR);
-				int isha = getRowDataValue(rowData, Menstruation.KEY_ISHA);
-				int magrib = getRowDataValue(rowData, Menstruation.KEY_MAGRIB);
-				int asr = getRowDataValue(rowData, Menstruation.KEY_ASR);
+			} else if (tableName.equalsIgnoreCase(T_Menstruation.TABLE_NAME)) {
+				String prayerDate = rowData.get(T_Menstruation.KEY_DATE);
+				int fajr = getRowDataValue(rowData, T_Menstruation.KEY_FAJR);
+				int zohar = getRowDataValue(rowData, T_Menstruation.KEY_ZOHAR);
+				int isha = getRowDataValue(rowData, T_Menstruation.KEY_ISHA);
+				int magrib = getRowDataValue(rowData, T_Menstruation.KEY_MAGRIB);
+				int asr = getRowDataValue(rowData, T_Menstruation.KEY_ASR);
 
 				long prayerId = db.prayer.isExist(prayerDate, PrayerType.ADA);
 
-				if (prayerId > -1) {
+				if (prayerId != -1) {
 					// if prayer exists
 					if (db.menstruation.isExist(prayerId)) {
-						// if the menstruation setting is found in table --
-						// update
+						// if its found in table -- update
 						db.menstruation.update(prayerId, fajr, zohar, asr,
 								magrib, isha);
 					} else {
@@ -243,51 +237,43 @@ public class BackupRestore extends SherlockFragmentActivity implements
 								asr, magrib, isha);
 					}
 				}
-			}
-
-			if (tableName.equalsIgnoreCase(Ramdhan.TABLE_NAME)) {
-				String date = rowData.get(Ramdhan.KEY_DATE);
-				int siyam = getRowDataValue(rowData, Ramdhan.KEY_SIYAM);
-				int taraweeh = getRowDataValue(rowData, Ramdhan.KEY_TARAWEEH);
-				int quran = getRowDataValue(rowData, Ramdhan.KEY_QURAN);
-				String value = rowData.get(Ramdhan.KEY_QURAN_JUZ);
+			} else if (tableName.equalsIgnoreCase(T_Ramdhan.TABLE_NAME)) {
+				String date = rowData.get(T_Ramdhan.KEY_DATE);
+				int siyam = getRowDataValue(rowData, T_Ramdhan.KEY_SIYAM);
+				int taraweeh = getRowDataValue(rowData, T_Ramdhan.KEY_TARAWEEH);
+				int quran = getRowDataValue(rowData, T_Ramdhan.KEY_QURAN);
+				String value = rowData.get(T_Ramdhan.KEY_QURAN_JUZ);
 				Float quranJuz = value != null ? Float.valueOf(value) : 0;
 
 				long id = db.ramdhan.isExist(date);
-
-				if (id > -1) {
+				if (id != -1) {
 					// if the details found in table -- update
 					db.ramdhan.update(id, siyam, taraweeh, quran, quranJuz);
 				} else {
 					// if not -- add new entry
 					db.ramdhan.add(date, siyam, taraweeh, quran, quranJuz);
 				}
-			}
-
-			if (tableName.equalsIgnoreCase(Tasbeeh.TABLE_NAME)) {
-
-				String name = rowData.get(Tasbeeh.KEY_NAME);
-				String tasbeeh = rowData.get(Tasbeeh.KEY_TASBEEH);
-				String meaning = rowData.get(Tasbeeh.KEY_MEANING);
+			} else if (tableName.equalsIgnoreCase(T_Tasbeeh.TABLE_NAME)) {
+				String name = rowData.get(T_Tasbeeh.KEY_NAME);
+				String tasbeeh = rowData.get(T_Tasbeeh.KEY_TASBEEH);
+				String meaning = rowData.get(T_Tasbeeh.KEY_MEANING);
 				int default_count = getRowDataValue(rowData,
-						Tasbeeh.KEY_DEFAULT_COUNT);
-				String notes = rowData.get(Tasbeeh.KEY_NOTES);
+						T_Tasbeeh.KEY_DEFAULT_COUNT);
+				String notes = rowData.get(T_Tasbeeh.KEY_NOTES);
 				int order = db.tasbeeh.getMaxTasbeehOrder() + 1;
 
 				long tasbeehId = db.tasbeeh.isTasbeehExist(name);
-
-				if (tasbeehId > -1) {
+				if (tasbeehId != -1) {
 					db.tasbeeh.update(tasbeehId, name, tasbeeh, meaning,
 							default_count, notes);
 				} else {
 					db.tasbeeh.add(name, tasbeeh, meaning, default_count,
 							notes, order);
 				}
-			}
-			if (tableName.equalsIgnoreCase(TasbeehCount.TABLE_NAME)) {
-				String tasbeehName = rowData.get(Tasbeeh.KEY_NAME);
+			} else if (tableName.equalsIgnoreCase(T_TasbeehCount.TABLE_NAME)) {
+				String tasbeehName = rowData.get(T_Tasbeeh.KEY_NAME);
 				int overall_count = getRowDataValue(rowData,
-						TasbeehCount.KEY_COUNT_OVERALL);
+						T_TasbeehCount.KEY_COUNT_OVERALL);
 
 				long tasbeehId = db.tasbeeh.isTasbeehExist(tasbeehName);
 				if (tasbeehId != -1) {
@@ -351,6 +337,7 @@ public class BackupRestore extends SherlockFragmentActivity implements
 							+ ".xml, Are you sure you want to continue?")
 					.setTitle("Confirm")
 					.setCancelable(true)
+					.setIcon(android.R.drawable.ic_delete)
 					.setPositiveButton("Yes",
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
@@ -371,7 +358,7 @@ public class BackupRestore extends SherlockFragmentActivity implements
 		case R.id.btnImport:
 
 			if (importFileNameField.getText().toString().trim().length() == 0) {
-				Util.Toast(getApplicationContext(), "Please enter the filename");
+				LogUtil.toastShort(getApplicationContext(), "Please enter the filename");
 				return;
 			}
 
@@ -380,6 +367,7 @@ public class BackupRestore extends SherlockFragmentActivity implements
 					"This might overwrite existing Prayers/ Tasbeeh/ Tasbeeh Count, Are you sure you want to continue?")
 					.setTitle("Confirm")
 					.setCancelable(true)
+					.setIcon(android.R.drawable.ic_delete)
 					.setPositiveButton("Yes",
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
@@ -417,25 +405,25 @@ public class BackupRestore extends SherlockFragmentActivity implements
 					public void run() {
 						switch (status) {
 						case 0:
-							Util.Toast(getApplicationContext(),
+							LogUtil.toastShort(getApplicationContext(),
 									"Prayers exported successfully!!!");
 							backupStatus
 									.setText("Prayers have been saved to SD card: "
 											+ filename);
 							break;
 						case 1:
-							Util.Toast(getApplicationContext(),
+							LogUtil.toastShort(getApplicationContext(),
 									"Problem while reading prayers!!!");
 							backupStatus
 									.setText("Problem while reading prayers");
 							break;
 						case 2:
-							Util.Toast(getApplicationContext(),
+							LogUtil.toastShort(getApplicationContext(),
 									"No Data available to export");
 							backupStatus.setText("No Data available to export");
 							break;
 						case 3:
-							Util.Toast(getApplicationContext(),
+							LogUtil.toastShort(getApplicationContext(),
 									"No SD card found");
 							backupStatus.setText("No SD card found");
 							break;
@@ -464,27 +452,27 @@ public class BackupRestore extends SherlockFragmentActivity implements
 					public void run() {
 						switch (status) {
 						case 0:
-							Util.Toast(getApplicationContext(),
+							LogUtil.toastShort(getApplicationContext(),
 									"Prayers imported successfully");
 							importStatus.setText("Prayers imported from: "
 									+ filename);
 							break;
 						case 1:
-							Util.Toast(getApplicationContext(),
+							LogUtil.toastShort(getApplicationContext(),
 									"File not found or invalid file");
 							importStatus
 									.setText("File not found or invalid file: "
 											+ filename);
 							break;
 						case 2:
-							Util.Toast(getApplicationContext(),
+							LogUtil.toastShort(getApplicationContext(),
 									"No prayers available to import");
 							importStatus
 									.setText("No prayers available to import from file: "
 											+ filename);
 							break;
 						case 3:
-							Util.Toast(getApplicationContext(),
+							LogUtil.toastShort(getApplicationContext(),
 									"Either backup file is corrupted or does not have any data");
 							importStatus
 									.setText("Either backup file is corrupted or does not have any data: "

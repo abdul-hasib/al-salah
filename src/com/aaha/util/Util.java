@@ -8,10 +8,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.aaha.db.DBAdapter;
 import com.aaha.db.DBAdapter.PrayerType;
 
 public class Util extends Activity {
@@ -20,39 +17,13 @@ public class Util extends Activity {
 	static String AM = " am";
 	static String PM = " pm";
 
-	public static void Toast(Context ctx, Object message) {
-		try {
-			Toast toast = new Toast(ctx);
-			toast = Toast.makeText(ctx, message.toString(), Toast.LENGTH_SHORT);
-			toast.show();
-			d(message);
-		} catch (Exception ex) {
-			Log.e(DBAdapter.TAG, "Exception in toasing");
-			ex.printStackTrace();
-		}
-	}
-
-	public static void Toast(Context ctx, Object message, Exception e) {
-		Toast.makeText(ctx, message + e.toString(), Toast.LENGTH_SHORT).show();
-		d(message);
-		e.printStackTrace();
-	}
-
-	public static void d(Object message) {
-		Log.d(DBAdapter.TAG, "" + message);
-	}
-
-	public static void e(Object message) {
-		Log.d(DBAdapter.TAG, "" + message);
-	}
-
 	@SuppressLint("SimpleDateFormat")
 	public static Date parseDate(String date) {
 		SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yy");
 		try {
 			return parser.parse(date);
 		} catch (ParseException e) {
-			e("Exception in parsing " + e.toString());
+			LogUtil.e("Exception in parsing " + e.toString());
 			e.printStackTrace();
 		}
 		return null;

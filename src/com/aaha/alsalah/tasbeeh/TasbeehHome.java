@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
-
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -20,8 +19,8 @@ import android.widget.SimpleCursorAdapter;
 
 import com.aaha.alsalah.R;
 import com.aaha.db.DBAdapter;
-import com.aaha.db.DBAdapter.Tasbeeh;
-import com.aaha.util.Util;
+import com.aaha.db.DBAdapter.T_Tasbeeh;
+import com.aaha.util.LogUtil;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 
@@ -62,7 +61,7 @@ public class TasbeehHome extends SherlockFragmentActivity implements
 			loadTasbeehList();
 		} catch (Exception e) {
 			e.printStackTrace();
-			Util.Toast(getApplicationContext(),
+			LogUtil.toastShort(getApplicationContext(),
 					"Error occurred while loading Tasbeeh: " + e);
 		}
 	}
@@ -162,7 +161,7 @@ public class TasbeehHome extends SherlockFragmentActivity implements
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								db.tasbeehCount.resetCount(tasbeehId, 0, 0);
-								Util.Toast(getApplicationContext(),
+								LogUtil.toastShort(getApplicationContext(),
 										"Tasbeeh count has been reset!");
 							}
 						})
@@ -194,8 +193,8 @@ public class TasbeehHome extends SherlockFragmentActivity implements
 			mCursor = db.tasbeeh.get();
 		}
 
-		String[] databaseColumnNames = new String[] { Tasbeeh.KEY_NAME,
-				Tasbeeh.KEY_DEFAULT_COUNT, Tasbeeh.KEY_NOTES };
+		String[] databaseColumnNames = new String[] { T_Tasbeeh.KEY_NAME,
+				T_Tasbeeh.KEY_DEFAULT_COUNT, T_Tasbeeh.KEY_NOTES };
 
 		int[] toViewIDs = new int[] { R.id.item_tasbeeh_name,
 				R.id.item_default_count, R.id.item_tasbeeh_notes };

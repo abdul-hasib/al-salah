@@ -17,7 +17,8 @@ import android.widget.TextView;
 import com.aaha.alsalah.R;
 import com.aaha.db.DBAdapter;
 import com.aaha.db.DBAdapter.PrayerType;
-import com.aaha.db.DBAdapter.Prayers;
+import com.aaha.db.DBAdapter.T_Prayers;
+import com.aaha.util.LogUtil;
 import com.aaha.util.Salah;
 import com.aaha.util.Util;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -112,7 +113,7 @@ public class AddSalah extends SherlockFragmentActivity implements
 
 		Date today = new Date();
 		if (date.compareTo(today) > 0) {
-			Util.Toast(getApplicationContext(),
+			LogUtil.toastShort(getApplicationContext(),
 					"Thanks for testing, Please select correct date");
 		} else {
 			prayerDate.setText(Util.formatDate(date.getTime()));
@@ -129,7 +130,7 @@ public class AddSalah extends SherlockFragmentActivity implements
 			try {
 				date = Util.parseDate(day + "/" + month + "/" + year);
 			} catch (Exception e) {
-				Util.Toast(getApplicationContext(),
+				LogUtil.toastShort(getApplicationContext(),
 						"Unknown exception occured while parsing date");
 			}
 			setPrayerDate(date);
@@ -266,22 +267,22 @@ public class AddSalah extends SherlockFragmentActivity implements
 				result = db.prayer.add(db.user.getActiveUserId(), today, f, z,
 						a, m, i, type);
 			} catch (Exception e) {
-				Util.Toast(getApplicationContext(), "Exception: " + e);
+				LogUtil.toastShort(getApplicationContext(), "Exception: " + e);
 			}
 		} else if (mCursor.moveToFirst()) {
 
 			int prayerId = mCursor.getInt(mCursor
-					.getColumnIndex(Prayers.KEY_PRAYER_ID));
+					.getColumnIndex(T_Prayers.KEY_PRAYER_ID));
 			int currentFajrCount = mCursor.getInt(mCursor
-					.getColumnIndex(Prayers.KEY_FAJR));
+					.getColumnIndex(T_Prayers.KEY_FAJR));
 			int currentZoharCount = mCursor.getInt(mCursor
-					.getColumnIndex(Prayers.KEY_ZOHAR));
+					.getColumnIndex(T_Prayers.KEY_ZOHAR));
 			int currentAsrCount = mCursor.getInt(mCursor
-					.getColumnIndex(Prayers.KEY_ASR));
+					.getColumnIndex(T_Prayers.KEY_ASR));
 			int currentMagribCount = mCursor.getInt(mCursor
-					.getColumnIndex(Prayers.KEY_MAGRIB));
+					.getColumnIndex(T_Prayers.KEY_MAGRIB));
 			int currentIshaCount = mCursor.getInt(mCursor
-					.getColumnIndex(Prayers.KEY_ISHA));
+					.getColumnIndex(T_Prayers.KEY_ISHA));
 
 			f += currentFajrCount;
 			z += currentZoharCount;
@@ -292,16 +293,16 @@ public class AddSalah extends SherlockFragmentActivity implements
 			try {
 				result = db.prayer.update(prayerId, f, z, a, m, i);
 			} catch (Exception e) {
-				Util.Toast(getApplicationContext(), "Exception: " + e);
+				LogUtil.toastShort(getApplicationContext(), "Exception: " + e);
 			}
 		}
 
 		if (result == -1) {
-			Util.Toast(getApplicationContext(),
+			LogUtil.toastShort(getApplicationContext(),
 					"Error occurred while adding bulk prayers");
 			return false;
 		} else {
-			Util.Toast(getApplicationContext(), "Salah added!");
+			LogUtil.toastShort(getApplicationContext(), "Salah added!");
 			super.finish();
 		}
 		return true;
@@ -309,7 +310,7 @@ public class AddSalah extends SherlockFragmentActivity implements
 
 	private boolean validateFields(int f, int z, int a, int m, int i) {
 		if (f == 0 && z == 0 && a == 0 && m == 0 && i == 0) {
-			Util.Toast(getApplicationContext(), "Please enter prayers");
+			LogUtil.toastShort(getApplicationContext(), "Please enter prayers");
 			return false;
 		}
 		return true;

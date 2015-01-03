@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_ada"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="@string/add_ada"/>
+    <item
+        android:id="@+id/menu_qadha"
+        android:title="@string/add_qadha"/>
+    <item
+        android:id="@+id/menu_qasr"
+        android:icon="@android:drawable/ic_menu_set_as"
+        android:title="@string/mark_qasr"/>
+
+</menu>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@layout/background_activity"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp" >
+
+    <ListView
+        android:id="@+id/additionalSalahList"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_weight="0.9"
+        android:fastScrollEnabled="true"
+        android:headerDividersEnabled="true"
+        android:longClickable="true"
+        android:orientation="vertical" >
+    </ListView>
+
+    <TextView
+        android:id="@+id/additionalSalahMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:gravity="center"
+        android:textColor="@color/blueviolet" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/addAdditionalSalah"
+            style="@style/ButtonAppTheme"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/add" />
+    </LinearLayout>
+
+</LinearLayout>

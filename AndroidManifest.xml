@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.aaha.alsalah"
+    android:versionCode="1"
+    android:versionName="2.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.Sherlock.Light" >
+        <activity
+            android:name="com.aaha.alsalah.Splash"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.aaha.alsalah.Home" />
+        <activity android:name="com.aaha.alsalah.ShowDaily" />
+        <activity android:name="com.aaha.alsalah.ShowQadha" />
+        <activity android:name="com.aaha.alsalah.ShowRamdhan" />
+        <activity android:name="com.aaha.alsalah.ShowLifetimeCounts" />
+        <activity android:name=".tasbeeh.TasbeehHome" />
+        <activity android:name=".tasbeeh.AddTasbeeh" />
+        <activity android:name=".tasbeeh.EditTasbeeh" />
+        <activity android:name=".tasbeeh.Zikr" />
+        <activity android:name=".profile.Login" />
+        <activity android:name=".profile.Register" />
+        <activity android:name=".profile.Update" />
+        <activity android:name=".ada.AddAda" />
+        <activity android:name=".ada.EditAda" />
+        <activity android:name=".additional.AddSalah" />
+        <activity android:name=".additional.EditSalah" />
+        <activity android:name=".ramdhan.AddRamdhanDetails" />
+        <activity android:name=".ramdhan.EditRamdhanDetails" />
+        <activity android:name=".backup.BackupRestore" />
+        <activity android:name=".qasr.SetQasr" />
+        <activity android:name=".notification.PrayerReminder" />
+        <activity android:name=".menstruation.SetMenstruation" />
+        <activity android:name=".settings.Settings" />
+
+        <receiver android:name=".notification.ScheduleAlarm" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".notification.PrayerNotificationService" />
+    </application>
+
+</manifest>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ramdhanLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@layout/background_activity"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp" >
+
+    <include
+        android:id="@+id/ramdhanHeader"
+        layout="@layout/table_layout_ramdhan_details"
+        android:background="@color/bisque" />
+
+    <ListView
+        android:id="@+id/ramdhanDetailsList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/quranProgressBar"
+        android:layout_below="@+id/ramdhanHeader"
+        android:fastScrollEnabled="true"
+        android:orientation="vertical" >
+
+    </ListView>
+
+    <Button
+        android:id="@+id/addRamdhanDetails"
+        style="@style/ButtonAppTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ramdhanHeader"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/add" />
+
+    <ProgressBar
+        android:id="@+id/quranProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/addRamdhanDetails"
+        android:layout_alignLeft="@+id/ramdhanDetailsList"
+        android:layout_alignRight="@+id/ramdhanDetailsList"
+        android:max="100"
+        android:maxHeight="5sp"
+        android:paddingBottom="15dp" />
+
+    <TextView
+        android:id="@+id/quranPercentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/quranProgressBar"
+        android:layout_centerHorizontal="true"
+        android:text="@string/day"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/quranTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/quranProgressBar"
+        android:layout_alignRight="@+id/ramdhanDetailsList"
+        android:text="@string/day"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/quranRevision"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/quranProgressBar"
+        android:layout_alignParentLeft="true"
+        android:text="@string/day"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>

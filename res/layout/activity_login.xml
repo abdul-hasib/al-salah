@@ -1,0 +1,63 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:background="@layout/background_activity" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        
+        android:layout_height="wrap_content"
+        tools:context=".Home" >
+        <EditText
+            android:id="@+id/usernameText"
+            style="@style/EditTextAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:ems="10"
+            android:hint="@string/username"
+            android:inputType="textPersonName" >
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/passwordText"
+            style="@style/EditTextAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/usernameText"
+            android:layout_alignRight="@+id/usernameText"
+            android:layout_below="@+id/usernameText"
+            android:layout_marginTop="22dp"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/loginButton"
+            style="@style/ButtonAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/usernameText"
+            android:layout_below="@+id/passwordText"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/login" />
+        <Button
+            android:id="@+id/registerButton"
+            style="@style/ButtonAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/loginButton"
+            android:layout_alignBottom="@+id/loginButton"
+            android:layout_alignRight="@+id/usernameText"
+            android:layout_marginRight="20dp"
+            android:text="@string/register" />
+    </RelativeLayout>
+</ScrollView>

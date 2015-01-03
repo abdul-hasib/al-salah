@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/item_tasbeeh_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/item_default_count"
+        android:gravity="left"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:singleLine="true"
+        android:text="@string/menu_tasbeeh"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/item_default_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/item_tasbeeh_name"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:background="@color/lightskyblue"
+        android:gravity="center"
+        android:minHeight="35dp"
+        android:minWidth="35dp"
+        android:textStyle="bold"
+        android:text="@string/zero"
+        android:textColor="@color/blue"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/item_tasbeeh_notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/item_tasbeeh_name"
+        android:layout_below="@+id/item_tasbeeh_name"
+        android:paddingLeft="10dp"
+        android:text="@string/loading_text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/blue" />
+
+</RelativeLayout>

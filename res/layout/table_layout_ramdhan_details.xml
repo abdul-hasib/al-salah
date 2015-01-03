@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:id="@+id/ramdhanTableHeader"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/item_date"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="@string/day"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/item_siyam"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="@string/header_siyam"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/item_taraweeh"
+        android:layout_height="wrap_content"
+        android:layout_width="90dp"
+        android:layout_gravity="left"
+        android:text="@string/header_taraweeh"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/item_quran_vol"
+        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_gravity="left"
+        android:text="@string/header_quran_vol"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</TableRow>

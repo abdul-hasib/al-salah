@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:background="@layout/background_activity"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="20dp"
+    android:paddingTop="20dp" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/selectDate"
+            style="@style/ButtonAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:text="@string/date" />
+
+        <LinearLayout
+            android:id="@+id/fajrLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/selectDate"
+            android:layout_alignRight="@+id/selectDate"
+            android:layout_below="@+id/selectDate"
+            android:layout_marginTop="18dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/fajrPrev"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/ic_action_previous_item" />
+
+            <EditText
+                android:id="@+id/additionalFajr"
+                style="@style/EditTextAppTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="2"
+                android:gravity="center"
+                android:hint="@string/fajr"
+                android:inputType="number"
+                android:maxLength="4" >
+            </EditText>
+
+            <Button
+                android:id="@+id/fajrNext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/ic_action_next_item"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zoharLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/fajrLayout"
+            android:layout_alignRight="@+id/fajrLayout"
+            android:layout_below="@+id/fajrLayout"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/zoharPrev"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/ic_action_previous_item" />
+
+            <EditText
+                android:id="@+id/additionalZohar"
+                style="@style/EditTextAppTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="2"
+                android:gravity="center"
+                android:hint="@string/zohar"
+                android:inputType="number"
+                android:maxLength="4" />
+
+            <Button
+                android:id="@+id/zoharNext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/ic_action_next_item" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/asrLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/zoharLayout"
+            android:layout_alignRight="@+id/zoharLayout"
+            android:layout_below="@+id/zoharLayout"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/asrPrev"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/ic_action_previous_item" />
+
+            <EditText
+                android:id="@+id/additionalAsr"
+                style="@style/EditTextAppTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="2"
+                android:gravity="center"
+                android:hint="@string/asr"
+                android:inputType="number"
+                android:maxLength="4" />
+
+            <Button
+                android:id="@+id/asrNext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/ic_action_next_item" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/magribLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/asrLayout"
+            android:layout_alignRight="@+id/asrLayout"
+            android:layout_below="@+id/asrLayout"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/magribPrev"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/ic_action_previous_item" />
+
+            <EditText
+                android:id="@+id/additionalMagrib"
+                style="@style/EditTextAppTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="2"
+                android:gravity="center"
+                android:hint="@string/magrib"
+                android:inputType="number"
+                android:maxLength="4" />
+
+            <Button
+                android:id="@+id/magribNext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/ic_action_next_item" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ishaLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/magribLayout"
+            android:layout_alignRight="@+id/magribLayout"
+            android:layout_below="@+id/magribLayout"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/ishaPrev"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/ic_action_previous_item" />
+
+            <EditText
+                android:id="@+id/additionalIsha"
+                style="@style/EditTextAppTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="2"
+                android:gravity="center"
+                android:hint="@string/isha"
+                android:inputType="number"
+                android:maxLength="4" />
+
+            <Button
+                android:id="@+id/ishaNext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/ic_action_next_item" />
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ishaLayout"
+            android:layout_alignRight="@+id/ishaLayout"
+            android:layout_below="@+id/ishaLayout"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/adaRadio"
+                style="@style/RadioButtonAppTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/ada" />
+
+            <RadioButton
+                android:id="@+id/qadhaRadio"
+                style="@style/RadioButtonAppTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/qadha" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/addAdditonalSalah"
+            style="@style/ButtonAppTheme"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/radioGroup"
+            android:layout_alignRight="@+id/radioGroup"
+            android:layout_below="@+id/radioGroup"
+            android:layout_marginTop="20dp"
+            android:enabled="false"
+            android:text="@string/add_additional_salah" />
+    </RelativeLayout>
+
+</ScrollView>

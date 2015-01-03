@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:background="@layout/background_activity"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="20dp"
+    android:paddingTop="20dp" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/selectDate"
+            style="@style/ButtonAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:text="@string/date" />
+
+        <CheckBox
+            android:id="@+id/fajrCheckbox"
+            style="@style/CheckBoxAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/selectDate"
+            android:layout_below="@+id/selectDate"
+            android:layout_marginTop="10dp"
+            android:text="@string/fajr" />
+
+        <CheckBox
+            android:id="@+id/zoharCheckbox"
+            style="@style/CheckBoxAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/fajrCheckbox"
+            android:layout_below="@+id/fajrCheckbox"
+            android:layout_marginTop="5dp"
+            android:text="@string/zohar" />
+
+        <CheckBox
+            android:id="@+id/asrCheckbox"
+            style="@style/CheckBoxAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/zoharCheckbox"
+            android:layout_below="@+id/zoharCheckbox"
+            android:layout_marginTop="5dp"
+            android:text="@string/asr" />
+
+        <CheckBox
+            android:id="@+id/magribCheckbox"
+            style="@style/CheckBoxAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/asrCheckbox"
+            android:layout_below="@+id/asrCheckbox"
+            android:layout_marginTop="5dp"
+            android:text="@string/magrib" />
+
+        <CheckBox
+            android:id="@+id/ishaCheckbox"
+            style="@style/CheckBoxAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/magribCheckbox"
+            android:layout_below="@+id/magribCheckbox"
+            android:layout_marginTop="5dp"
+            android:text="@string/isha" />
+
+        <Button
+            android:id="@+id/savePrayerButton"
+            style="@style/ButtonAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ishaCheckbox"
+            android:layout_alignRight="@+id/selectDate"
+            android:layout_below="@+id/ishaCheckbox"
+            android:layout_marginTop="10dp"
+            android:text="@string/save" />
+    </RelativeLayout>
+
+</ScrollView>

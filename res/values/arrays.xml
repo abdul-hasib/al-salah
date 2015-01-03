@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="gender_options">
+        <item name="male">Male</item>
+        <item name="female">Female</item>
+    </string-array>
+    <string-array name="gender_values">
+        <item name="male">1</item>
+        <item name="female">0</item>
+    </string-array>
+    
+    <string-array name="date_format_options">
+        <item name="eeemmdd">Day mm/dd</item>
+        <item name="ddmmyy">dd/mm/yy</item>
+        <item name="mmddyy">mm/dd/yy</item>
+    </string-array>
+    <string-array name="date_format_values">
+        <item name="eeedd">0</item>
+        <item name="ddmmyy">1</item>
+        <item name="mmddyy">2</item>
+    </string-array>
+    
+    
+    <string-array name="pub_age_values">
+        <item>Puberty Age</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+    </string-array>
+    <string-array name="tasbeeh_values">
+        <item></item>
+        <item>33</item>
+        <item>100</item>
+        <item>1000</item>
+        <item>Custom</item>
+    </string-array>
+
+</resources>

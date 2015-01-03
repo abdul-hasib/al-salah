@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:background="@layout/background_activity"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        <RelativeLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/cell_shape"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
+            <TextView
+                android:id="@+id/txtTasbeehDefaultCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+                android:text="@string/export_note"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="12sp" />
+            <Button
+                android:id="@+id/btnExport"
+                style="@style/ButtonAppTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/txtTasbeehDefaultCount"
+                android:layout_marginTop="24dp"
+                android:text="@string/export_data" />
+            <TextView
+                android:id="@+id/txtbackupStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/btnExport"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/green"
+                android:textSize="12sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/relativeLayout1"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/cell_shape"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:gravity="left"
+                android:paddingTop="20dp"
+                android:text="@string/import_note"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="12sp" />
+            <EditText
+                android:id="@+id/importFileNameField"
+                style="@style/EditTextAppTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textView12"
+                android:layout_alignTop="@+id/btnImport"
+                android:ems="10"
+                android:hint=""
+                android:singleLine="true" >
+
+                <requestFocus />
+
+            </EditText>
+            <Button
+                android:id="@+id/btnImport"
+                style="@style/ButtonAppTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/textView12"
+                android:layout_marginTop="24dp"
+                android:text="@string/import_data" />
+            <TextView
+                android:id="@+id/txtImportStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/btnImport"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/green"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

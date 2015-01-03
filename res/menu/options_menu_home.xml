@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_update_profile"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:showAsAction="withText"
+        android:title="@string/menu_update_profile"/>
+    <item
+        android:id="@+id/menu_backup"
+        android:icon="@android:drawable/ic_menu_save"
+        android:showAsAction="always"
+        android:title="@string/menu_backup"/>
+    <item
+        android:id="@+id/menu_tasbeeh"
+        android:icon="@drawable/ic_menu_tasbeeh"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_tasbeeh"/>
+    <item
+        android:id="@+id/menu_signout"
+        android:icon="@android:drawable/ic_lock_power_off"
+        android:showAsAction="withText"
+        android:title="@string/menu_sign_out"/>
+    <item
+        android:id="@+id/menu_notification"
+        android:icon="@drawable/ic_menu_notification"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_notification"/>
+    <item
+        android:id="@+id/menu_settings"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_settings"/>
+
+</menu>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:background="@layout/background_activity"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="20dp"
+    android:paddingTop="20dp" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/selectDate"
+            style="@style/ButtonAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:text="@string/date" />
+
+        <CheckBox
+            android:id="@+id/siyamCheckbox"
+            style="@style/CheckBoxAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/selectDate"
+            android:layout_below="@+id/selectDate"
+            android:layout_marginTop="20dp"
+            android:text="@string/siyam" />
+
+        <CheckBox
+            android:id="@+id/taraweehCheckbox"
+            style="@style/CheckBoxAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/siyamCheckbox"
+            android:layout_below="@+id/siyamCheckbox"
+            android:layout_marginTop="5dp"
+            android:text="@string/taraweeh" />
+
+        <CheckBox
+            android:id="@+id/quranCheckbox"
+            style="@style/CheckBoxAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/taraweehCheckbox"
+            android:layout_below="@+id/taraweehCheckbox"
+            android:layout_marginTop="5dp"
+            android:text="@string/quran" />
+
+        <EditText
+            android:id="@+id/quranEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/quranCheckbox"
+            android:layout_alignRight="@+id/selectDate"
+            android:layout_below="@+id/quranCheckbox"
+            android:layout_marginTop="10dp"
+            android:ems="4"
+            android:gravity="center"
+            android:hint="@string/quran_juz"
+            android:inputType="number|numberDecimal"
+            android:maxLength="5"
+            android:textSize="13sp"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/saveRamdhanButton"
+            style="@style/ButtonAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/quranEditText"
+            android:layout_alignRight="@+id/quranEditText"
+            android:layout_below="@+id/quranEditText"
+            android:layout_marginTop="19dp"
+            android:text="@string/save" />
+
+        <TextView
+            android:id="@+id/ramdhanMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/saveRamdhanButton"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textColor="@color/blueviolet"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+</ScrollView>

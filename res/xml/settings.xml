@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="@string/pref_update_setting" >
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/gender_options"
+            android:entryValues="@array/gender_values"
+            android:key="pref_profile_gender"
+            android:summary="@string/pref_profile_gender_summary"
+            android:title="@string/pref_profile_gender" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/tab_settings" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="pref_hide_additional_tab"
+            android:summary="@string/pref_hide_additional_tab_summary"
+            android:title="@string/pref_hide_additional_tab" >
+        </CheckBoxPreference>
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="pref_hide_qadha_tab"
+            android:summary="@string/pref_hide_qadha_tab_summary"
+            android:title="@string/pref_hide_qadha_tab" >
+        </CheckBoxPreference>
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="pref_hide_ramdhan_tab"
+            android:summary="@string/pref_hide_ramdhan_tab_summary"
+            android:title="@string/pref_hide_ramdhan_tab" >
+        </CheckBoxPreference>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/tasbeeh_settings" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="pref_auto_direct_tasbeeh"
+            android:summary="@string/pref_auto_direct_tasbeeh_summary"
+            android:title="@string/pref_auto_direct_tasbeeh" >
+        </CheckBoxPreference>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/daily_salah_settings" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="pref_highlight_friday"
+            android:summary="@string/pref_highlight_friday_summary"
+            android:title="@string/pref_highlight_friday" >
+        </CheckBoxPreference>
+
+        <EditTextPreference
+            android:defaultValue=""
+            android:key="pref_daily_salah_limit"
+            android:numeric="integer"
+            android:summary="@string/pref_daily_salah_limit_summary"
+            android:title="@string/pref_daily_salah_limit" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="pref_hide_perfect_days"
+            android:summary="@string/pref_hide_perfect_days_summary"
+            android:title="@string/pref_hide_perfect_days" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

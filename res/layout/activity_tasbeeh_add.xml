@@ -1,0 +1,91 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@layout/background_activity"
+    android:paddingBottom="10dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="10dp" >
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+        <EditText
+            android:id="@+id/tasbeehNameField"
+            style="@style/EditTextAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Ex: Istighfar"
+            android:maxLength="30"
+            android:singleLine="true" />
+        <EditText
+            android:id="@+id/tasbeehField"
+            style="@style/EditTextAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tasbeehNameField"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Ex: Astaghfirullah"
+            android:inputType="textMultiLine"
+            android:maxLines="20"
+            android:minHeight="50dp"
+            android:singleLine="false" >
+        </EditText>
+        <EditText
+            android:id="@+id/tasbeehMeaningField"
+            style="@style/EditTextAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tasbeehField"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Ex: I seek Allah&apos;s Forgiveness"
+            android:inputType="textMultiLine"
+            android:maxLines="20"
+            android:minHeight="50dp"
+            android:singleLine="false" />
+        <EditText
+            android:id="@+id/tasbeehCountField"
+            style="@style/EditTextAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tasbeehMeaningField"
+            android:layout_marginTop="10dp"
+            android:ems="5"
+            android:hint="Ex: 3"
+            android:inputType="number"
+            android:maxLength="5"
+            android:singleLine="true" />
+        <EditText
+            android:id="@+id/tasbeehNotesField"
+            style="@style/EditTextAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tasbeehCountField"
+            android:layout_marginTop="10dp"
+            android:hint="Ex: [Muslim]"
+            android:singleLine="false" />
+        <Button
+            android:id="@+id/btnAddTasbeeh"
+            style="@style/ButtonAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tasbeehCountField"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tasbeehNotesField"
+            android:layout_marginTop="30dp"
+            android:text="@string/add" />
+    </RelativeLayout>
+</ScrollView>

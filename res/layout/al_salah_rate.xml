@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rateAlSalahLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@layout/background_activity"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp" >
+
+    <TextView
+        android:id="@+id/rateMessage"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.1"
+        android:gravity="center"
+        android:text="@string/rate_message" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/rateAlSalah"
+            style="@style/ButtonAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/rate_al_salah" />
+
+        <Button
+            android:id="@+id/rateRremindLater"
+            style="@style/ButtonAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/rate_remind_later" />
+
+        <Button
+            android:id="@+id/rateNoThanks"
+            style="@style/ButtonAppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/rate_discard" />
+    </LinearLayout>
+
+</LinearLayout>

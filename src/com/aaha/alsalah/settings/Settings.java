@@ -22,6 +22,7 @@ public class Settings extends PreferenceActivity {
 	public static String PREF_HIDE_QADHA_TAB = "pref_hide_qadha_tab";
 	public static String PREF_HIDE_RAMDHAN_TAB = "pref_hide_ramdhan_tab";
 	public static String PREF_HIDE_PERFECT_DAYS = "pref_hide_perfect_days";
+	public static String PREF_HIDE_TABS = "pref_hide_tabs";
 
 	public static String PREF_TASBEEH_AUTO_DIRECT = "pref_auto_direct_tasbeeh";
 

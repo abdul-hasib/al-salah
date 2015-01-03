@@ -111,9 +111,12 @@ public class Home extends SherlockFragmentActivity {
 
 		dailyTab = actionbar.newTab().setText("Daily");
 		statisticsTab = actionbar.newTab().setText("Lifetime");
-		qadhaTab = actionbar.newTab().setText("Qadha");
-		additionalTab = actionbar.newTab().setText("Additional");
-		ramdhanTab = actionbar.newTab().setText("Ramdhan");
+		qadhaTab = actionbar.newTab().setText(
+				getResources().getString(R.string.tab_qadha));
+		additionalTab = actionbar.newTab().setText(
+				getResources().getString(R.string.tab_additional));
+		ramdhanTab = actionbar.newTab().setText(
+				getResources().getString(R.string.tab_ramdhan));
 
 		dailyFragment = new ShowDaily();
 		statisticsFragment = new ShowLifetimeCounts();
@@ -135,17 +138,18 @@ public class Home extends SherlockFragmentActivity {
 			actionbar.addTab(ramdhanTab);
 		}
 
-		hideTab(qadhaTab, Settings.PREF_HIDE_QADHA_TAB);
-		hideTab(additionalTab, Settings.PREF_HIDE_ADDITIONAL_TAB);
-		hideTab(ramdhanTab, Settings.PREF_HIDE_RAMDHAN_TAB);
+		hideTab(qadhaTab, getResources().getString(R.string.tab_qadha));
+		hideTab(additionalTab, getResources()
+				.getString(R.string.tab_additional));
+		hideTab(ramdhanTab, getResources().getString(R.string.tab_ramdhan));
 
 	}
 
-	private void hideTab(ActionBar.Tab tab, String prefName) {
-		boolean hideAdditional = Settings.getBoolean(prefName,
-				getApplicationContext(), false);
+	private void hideTab(ActionBar.Tab tab, String tabName) {
+		String values = Settings.getString(Settings.PREF_HIDE_TABS,
+				getApplicationContext(), "");
 		int pos = isTabExist(tab);
-		if (hideAdditional) {
+		if (values.contains(tabName)) {
 			if (pos > -1) {
 				actionbar.removeTabAt(pos);
 			}

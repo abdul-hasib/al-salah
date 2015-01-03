@@ -1,43 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <PreferenceCategory android:title="@string/pref_update_setting" >
-        <ListPreference
-            android:defaultValue="1"
-            android:entries="@array/gender_options"
-            android:entryValues="@array/gender_values"
-            android:key="pref_profile_gender"
-            android:summary="@string/pref_profile_gender_summary"
-            android:title="@string/pref_profile_gender" />
-    </PreferenceCategory>
-    <PreferenceCategory android:title="@string/tab_settings" >
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="pref_hide_additional_tab"
-            android:summary="@string/pref_hide_additional_tab_summary"
-            android:title="@string/pref_hide_additional_tab" >
-        </CheckBoxPreference>
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="pref_hide_qadha_tab"
-            android:summary="@string/pref_hide_qadha_tab_summary"
-            android:title="@string/pref_hide_qadha_tab" >
-        </CheckBoxPreference>
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="pref_hide_ramdhan_tab"
-            android:summary="@string/pref_hide_ramdhan_tab_summary"
-            android:title="@string/pref_hide_ramdhan_tab" >
-        </CheckBoxPreference>
-    </PreferenceCategory>
-    <PreferenceCategory android:title="@string/tasbeeh_settings" >
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="pref_auto_direct_tasbeeh"
-            android:summary="@string/pref_auto_direct_tasbeeh_summary"
-            android:title="@string/pref_auto_direct_tasbeeh" >
-        </CheckBoxPreference>
-    </PreferenceCategory>
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/gender_options"
+        android:entryValues="@array/gender_values"
+        android:key="pref_profile_gender"
+        android:summary="@string/pref_profile_gender_summary"
+        android:title="@string/pref_profile_gender" />
+
+    <com.aaha.alsalah.preference.ListPreferenceMultiSelect
+        android:entries="@array/pref_hidable_tab_entries"
+        android:entryValues="@array/pref_hidable_tab_values"
+        android:key="pref_hide_tabs"
+        android:summary="Select the tabs to hide"
+        android:title="Hide Tabs" />
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="pref_auto_direct_tasbeeh"
+        android:summary="@string/pref_auto_direct_tasbeeh_summary"
+        android:title="@string/pref_auto_direct_tasbeeh" >
+    </CheckBoxPreference>
+
     <PreferenceCategory android:title="@string/daily_salah_settings" >
         <CheckBoxPreference
             android:defaultValue="true"

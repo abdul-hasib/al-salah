@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="tab_qadha">Qadha</string>
+    <string name="tab_additional">Additional</string>
+    <string name="tab_ramdhan">Ramdhan</string>
+
+</resources>

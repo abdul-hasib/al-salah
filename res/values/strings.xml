@@ -44,7 +44,6 @@
     <string name="back">Back</string>
     <string name="date">Date</string>
     <string name="ada">Ada</string>
-    <string name="qadha">Qadha</string>
     <string name="qasr">Qasr</string>
     <string name="gunah">Gunah</string>
     <string name="add">Add</string>
@@ -75,31 +74,4 @@
     <string name="menu_settings">Settings</string>
     <string name="menu_update_profile">Update Profile</string>
     <string name="menu_tasbeeh">Tasbeeh</string>
-    <string name="pref_profile_gender">Set Gender</string>
-    <string name="pref_profile_gender_summary">Set your gender</string>
-    <string name="pref_highlight_friday">Highlight Friday</string>
-    <string name="pref_highlight_friday_summary">Mark Friday in daily salah list</string>
-    <string name="pref_hide_additional_tab">Hide Additional Tab</string>
-    <string name="pref_hide_additional_tab_summary">Show/ Hide additional Salah tab</string>
-    <string name="pref_hide_qadha_tab">Hide Qadha Tab</string>
-    <string name="pref_hide_qadha_tab_summary">Show/ Hide Qadha Salah tab</string>
-    <string name="pref_hide_ramdhan_tab">Hide Ramdhan Tab</string>
-    <string name="pref_hide_ramdhan_tab_summary">Show/ Hide Ramdhan tab</string>
-    <string name="pref_auto_direct_tasbeeh">Zikr of Allah</string>
-    <string name="pref_auto_direct_tasbeeh_summary">Open Tasbeeh on adding each Salah</string>
-    <string name="pref_daily_salah_limit">Number of Daily Salah</string>
-    <string name="pref_daily_salah_limit_summary">Set daily salah display list size</string>
-    <string name="pref_hide_perfect_days">Hide perfect day</string>
-    <string name="pref_hide_perfect_days_summary">Hide the day(s) you prayed all five prayers</string>
-    <string name="pref_user_name">Set username</string>
-    <string name="pref_user_name_summary">Set your username</string>
-    <string name="pref_user_password">Set password</string>
-    <string name="pref_user_password_summary">Set your password</string>
-    <string name="pref_user_dob">Set date of birth</string>
-    <string name="pref_user_dob_summary">Set your date of birth</string>
-    <string name="pref_send_report">Send crash reports</string>
-    <string name="pref_send_report_summary">Helps to fix bugs</string>
-    <string name="pref_user_profile">User Profile</string>
-    <string name="pref_update_setting">Profile Settings</string>
-
 </resources>

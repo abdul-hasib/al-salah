@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/qadha"
+            android:text="@string/tab_qadha"
             android:textColor="@color/blue" />
 
         <TextView

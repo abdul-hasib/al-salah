@@ -17,7 +17,7 @@ import com.aaha.util.Util;
 
 public class DBAdapter {
 
-	public static final String TAG = "Salah";
+	public static final String TAG = "Al-Salah";
 	private static final String DATABASE_NAME = "alSalahDb.db";
 	private static final int DATABASE_VERSION = 6;
 

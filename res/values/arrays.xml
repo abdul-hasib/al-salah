@@ -9,7 +9,6 @@
         <item name="male">1</item>
         <item name="female">0</item>
     </string-array>
-    
     <string-array name="date_format_options">
         <item name="eeemmdd">Day mm/dd</item>
         <item name="ddmmyy">dd/mm/yy</item>
@@ -20,8 +19,6 @@
         <item name="ddmmyy">1</item>
         <item name="mmddyy">2</item>
     </string-array>
-    
-    
     <string-array name="pub_age_values">
         <item>Puberty Age</item>
         <item>10</item>
@@ -36,6 +33,17 @@
         <item>100</item>
         <item>1000</item>
         <item>Custom</item>
+    </string-array>
+    <string-array name="pref_hidable_tab_entries">
+        <item>Qadha</item>
+        <item>Additional</item>
+        <item>Ramdhan</item>
+    </string-array>
+    
+    <string-array name="pref_hidable_tab_values">
+        <item>Qadha</item>
+        <item>Additional</item>
+        <item>Ramdhan</item>
     </string-array>
 
 </resources>

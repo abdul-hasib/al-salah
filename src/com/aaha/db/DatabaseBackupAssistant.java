@@ -92,6 +92,7 @@ public class DatabaseBackupAssistant {
 
 	private void exportTable(String tableName) throws IOException {
 		_exporter.startTable(tableName);
+		Log.d(DBAdapter.TAG, tableName);
 
 		Cursor mCursor = null;
 		if (tableName.equalsIgnoreCase(Prayers.TABLE_NAME)) {

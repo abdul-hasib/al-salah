@@ -150,6 +150,15 @@ public class BackupRestore extends SherlockFragmentActivity implements
 		return null;
 	}
 
+	private int getRowDataValue(Map<String, String> rowData, String key) {
+		int value = 0;
+		String temp = rowData.get(key);
+		if (temp != null) {
+			value = Integer.valueOf(temp);
+		}
+		return value;
+	}
+
 	public void importDataIntoTables(Node nTableNode) {
 
 		if (nTableNode == null) {
@@ -160,6 +169,8 @@ public class BackupRestore extends SherlockFragmentActivity implements
 		Element eElement = (Element) nTableNode;
 		String tableName = eElement.getAttribute("name");
 		Log.d(DBAdapter.TAG, "Importing data from table: " + tableName);
+		Log.d(DBAdapter.TAG,
+				"Number of nodes: " + String.valueOf(nRowNodes.getLength()));
 
 		for (int row = 0; row < nRowNodes.getLength(); row++) {
 			Node nRowNode = nRowNodes.item(row);
@@ -168,13 +179,13 @@ public class BackupRestore extends SherlockFragmentActivity implements
 			if (tableName.equalsIgnoreCase(Prayers.TABLE_NAME)) {
 				long userId = db.user.getActiveUserId();
 				String prayerDate = rowData.get(Prayers.KEY_DATE);
-				int fajr = Integer.valueOf(rowData.get(Prayers.KEY_FAJR));
-				int zohar = Integer.valueOf(rowData.get(Prayers.KEY_ZOHAR));
-				PrayerType type = Util.getPrayerType(Integer.valueOf(rowData
-						.get(Prayers.KEY_TYPE)));
-				int isha = Integer.valueOf(rowData.get(Prayers.KEY_ISHA));
-				int magrib = Integer.valueOf(rowData.get(Prayers.KEY_MAGRIB));
-				int asr = Integer.valueOf(rowData.get(Prayers.KEY_ASR));
+				int fajr = getRowDataValue(rowData, Prayers.KEY_FAJR);
+				int zohar = getRowDataValue(rowData, Prayers.KEY_ZOHAR);
+				PrayerType type = Util.getPrayerType(getRowDataValue(rowData,
+						Prayers.KEY_TYPE));
+				int isha = getRowDataValue(rowData, Prayers.KEY_ISHA);
+				int magrib = getRowDataValue(rowData, Prayers.KEY_MAGRIB);
+				int asr = getRowDataValue(rowData, Prayers.KEY_ASR);
 
 				long prayerId = db.prayer.isExist(prayerDate, type);
 				if (prayerId == -1) {
@@ -193,49 +204,54 @@ public class BackupRestore extends SherlockFragmentActivity implements
 				int magrib = Integer.valueOf(rowData.get(Qasr.KEY_MAGRIB));
 				int asr = Integer.valueOf(rowData.get(Qasr.KEY_ASR));
 
-				long prayerId = db.prayer.isExist(prayerDate, PrayerType.ADA);
+				long prayerId = db.prayer.isExist(prayerDate);
 
-				if (prayerId > -1) {
-					// if the qasr salah is found in table -- update
-					db.qasr.update(prayerId, fajr, zohar, asr, magrib, isha);
-				} else {
-					// if not found -- add new entry
-					db.qasr.add(prayerId, prayerDate, fajr, zohar, asr, magrib,
-							isha);
+				if (prayerId != -1) {
+					// if prayer exists, get qasr prayer id
+					if (db.qasr.isExist(prayerId)) {
+						// if the qasr salah is found in table -- update
+						db.qasr.update(prayerId, fajr, zohar, asr, magrib, isha);
+					} else {
+						// if not found -- add new entry
+						db.qasr.add(prayerId, prayerDate, fajr, zohar, asr,
+								magrib, isha);
+					}
 				}
+
 			}
 
 			if (tableName.equalsIgnoreCase(Menstruation.TABLE_NAME)) {
 				String prayerDate = rowData.get(Menstruation.KEY_DATE);
-				int fajr = Integer.valueOf(rowData.get(Menstruation.KEY_FAJR));
-				int zohar = Integer
-						.valueOf(rowData.get(Menstruation.KEY_ZOHAR));
-				int isha = Integer.valueOf(rowData.get(Menstruation.KEY_ISHA));
-				int magrib = Integer.valueOf(rowData
-						.get(Menstruation.KEY_MAGRIB));
-				int asr = Integer.valueOf(rowData.get(Menstruation.KEY_ASR));
+				int fajr = getRowDataValue(rowData, Menstruation.KEY_FAJR);
+				int zohar = getRowDataValue(rowData, Menstruation.KEY_ZOHAR);
+				int isha = getRowDataValue(rowData, Menstruation.KEY_ISHA);
+				int magrib = getRowDataValue(rowData, Menstruation.KEY_MAGRIB);
+				int asr = getRowDataValue(rowData, Menstruation.KEY_ASR);
 
 				long prayerId = db.prayer.isExist(prayerDate, PrayerType.ADA);
 
 				if (prayerId > -1) {
-					// if the menstruation setting is found in table -- update
-					db.menstruation.update(prayerId, fajr, zohar, asr, magrib,
-							isha);
-				} else {
-					// if not found -- add new entry
-					db.menstruation.add(prayerId, prayerDate, fajr, zohar, asr,
-							magrib, isha);
+					// if prayer exists
+					if (db.menstruation.isExist(prayerId)) {
+						// if the menstruation setting is found in table --
+						// update
+						db.menstruation.update(prayerId, fajr, zohar, asr,
+								magrib, isha);
+					} else {
+						// if not found -- add new entry
+						db.menstruation.add(prayerId, prayerDate, fajr, zohar,
+								asr, magrib, isha);
+					}
 				}
 			}
 
 			if (tableName.equalsIgnoreCase(Ramdhan.TABLE_NAME)) {
 				String date = rowData.get(Ramdhan.KEY_DATE);
-				int siyam = Integer.valueOf(rowData.get(Ramdhan.KEY_SIYAM));
-				int taraweeh = Integer.valueOf(rowData
-						.get(Ramdhan.KEY_TARAWEEH));
-				int quran = Integer.valueOf(rowData.get(Ramdhan.KEY_QURAN));
-				Float quranJuz = Float.valueOf(rowData
-						.get(Ramdhan.KEY_QURAN_JUZ));
+				int siyam = getRowDataValue(rowData, Ramdhan.KEY_SIYAM);
+				int taraweeh = getRowDataValue(rowData, Ramdhan.KEY_TARAWEEH);
+				int quran = getRowDataValue(rowData, Ramdhan.KEY_QURAN);
+				String value = rowData.get(Ramdhan.KEY_QURAN_JUZ);
+				Float quranJuz = value != null ? Float.valueOf(value) : 0;
 
 				long id = db.ramdhan.isExist(date);
 
@@ -253,8 +269,8 @@ public class BackupRestore extends SherlockFragmentActivity implements
 				String name = rowData.get(Tasbeeh.KEY_NAME);
 				String tasbeeh = rowData.get(Tasbeeh.KEY_TASBEEH);
 				String meaning = rowData.get(Tasbeeh.KEY_MEANING);
-				int default_count = Integer.valueOf(rowData
-						.get(Tasbeeh.KEY_DEFAULT_COUNT));
+				int default_count = getRowDataValue(rowData,
+						Tasbeeh.KEY_DEFAULT_COUNT);
 				String notes = rowData.get(Tasbeeh.KEY_NOTES);
 				int order = db.tasbeeh.getMaxTasbeehOrder() + 1;
 
@@ -270,8 +286,8 @@ public class BackupRestore extends SherlockFragmentActivity implements
 			}
 			if (tableName.equalsIgnoreCase(TasbeehCount.TABLE_NAME)) {
 				String tasbeehName = rowData.get(Tasbeeh.KEY_NAME);
-				int overallCount = Integer.valueOf(rowData
-						.get(TasbeehCount.KEY_COUNT_OVERALL));
+				int overall_count = getRowDataValue(rowData,
+						TasbeehCount.KEY_COUNT_OVERALL);
 
 				long tasbeehId = db.tasbeeh.isTasbeehExist(tasbeehName);
 				if (tasbeehId != -1) {
@@ -281,15 +297,14 @@ public class BackupRestore extends SherlockFragmentActivity implements
 
 					if (mCursor == null) {
 						db.tasbeehCount.add(Util.formatDate(today), tasbeehId,
-								0, overallCount);
+								0, overall_count);
 					} else {
-
 						if (mCursor.moveToFirst()) {
 							db.tasbeehCount.update(Util.formatDate(today),
-									tasbeehId, 0, overallCount);
+									tasbeehId, 0, overall_count);
 						} else {
 							db.tasbeehCount.add(Util.formatDate(today),
-									tasbeehId, 0, overallCount);
+									tasbeehId, 0, overall_count);
 						}
 						mCursor.close();
 					}

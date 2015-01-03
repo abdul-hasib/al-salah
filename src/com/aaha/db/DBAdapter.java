@@ -525,6 +525,15 @@ public class DBAdapter {
 			return null;
 		}
 
+		public Cursor get(String prayerDate) {
+			Date date = Util.parseDate(prayerDate);
+			return db.query(TABLE_NAME, new String[] { KEY_PRAYER_ID },
+					KEY_USER_ID + "=? and " + KEY_DATE + "=?",
+					new String[] { String.valueOf(user.getActiveUserId()),
+							String.valueOf(date.getTime() / 1000) }, null,
+					null, null, null);
+		}
+
 		public long isExist(String prayerDate, PrayerType type) {
 			long prayerId = -1;
 
@@ -538,6 +547,17 @@ public class DBAdapter {
 			}
 			c.close();
 
+			return prayerId;
+		}
+
+		public long isExist(String prayerDate) {
+			long prayerId = -1;
+
+			Cursor c = get(prayerDate);
+			if (c != null && c.moveToFirst()) {
+				prayerId = c.getInt(c.getColumnIndex(KEY_PRAYER_ID));
+			}
+			c.close();
 			return prayerId;
 		}
 
@@ -996,6 +1016,7 @@ public class DBAdapter {
 		public long update(long prayerId, int fajr, int zohar, int asr,
 				int magrib, int isha) {
 			ContentValues initialValues = new ContentValues();
+			initialValues.put(KEY_PRAYER_ID, prayerId);
 			initialValues.put(KEY_FAJR, fajr);
 			initialValues.put(KEY_ZOHAR, zohar);
 			initialValues.put(KEY_ASR, asr);
@@ -1022,7 +1043,6 @@ public class DBAdapter {
 					null, null, null, null);
 
 			if (c != null) {
-
 				if (c.moveToFirst()) {
 					prayerId = c.getInt(c.getColumnIndex(KEY_PRAYER_ID));
 				}
@@ -1039,6 +1059,10 @@ public class DBAdapter {
 			}
 
 			return false;
+		}
+
+		public boolean isExist(String prayerDate) {
+			return (get(prayerDate) > -1);
 		}
 
 		public Cursor getQasrPrayersToExport() {
@@ -1286,11 +1310,11 @@ public class DBAdapter {
 	}
 
 	public void dropTable() {
-		db.execSQL("DROP TABLE IF EXISTS " + Ramdhan.TABLE_NAME);
+		db.execSQL("DROP TABLE IF EXISTS " + Qasr.TABLE_NAME);
 	}
 
 	public void createTable() {
-		db.execSQL(Ramdhan.CREATE_SQL);
+		db.execSQL(Qasr.CREATE_SQL);
 	}
 
 	public DBAdapter open() throws SQLException {

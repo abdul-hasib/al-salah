@@ -22,7 +22,6 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import com.aaha.alsalah.R;
 import com.aaha.alsalah.ada.AddAda;
 import com.aaha.alsalah.ada.EditAda;
 import com.aaha.alsalah.additional.AddSalah;
@@ -71,7 +70,7 @@ public class ShowDaily extends SherlockFragment implements OnClickListener {
 
 		db = new DBAdapter(getSherlockActivity().getApplicationContext());
 		db.open();
-
+		
 		try {
 			addRecentMissingSalah();
 			loadRecentPrayers();

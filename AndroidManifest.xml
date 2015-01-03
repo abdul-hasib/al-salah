@@ -27,11 +27,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.aaha.alsalah.Home" />
-        <activity android:name="com.aaha.alsalah.ShowDaily" />
-        <activity android:name="com.aaha.alsalah.ShowQadha" />
-        <activity android:name="com.aaha.alsalah.ShowRamdhan" />
-        <activity android:name="com.aaha.alsalah.ShowLifetimeCounts" />
+        <activity android:name=".Home" />
+        <activity android:name=".ShowDaily" />
+        <activity android:name=".ShowQadha" />
+        <activity android:name=".ShowRamdhan" />
+        <activity android:name=".ShowLifetimeCounts" />
         <activity android:name=".tasbeeh.TasbeehHome" />
         <activity android:name=".tasbeeh.AddTasbeeh" />
         <activity android:name=".tasbeeh.EditTasbeeh" />

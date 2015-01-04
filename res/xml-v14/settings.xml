@@ -8,17 +8,17 @@
         android:summary="@string/pref_daily_salah_limit_summary"
         android:title="@string/pref_daily_salah_limit" />
 
-    <CheckBoxPreference
+    <SwitchPreference
         android:defaultValue="true"
         android:key="pref_highlight_friday"
         android:summary="@string/pref_highlight_friday_summary"
         android:title="@string/pref_highlight_friday" />
-    <CheckBoxPreference
+    <SwitchPreference
         android:defaultValue="false"
         android:key="pref_hide_perfect_days"
         android:summary="@string/pref_hide_perfect_days_summary"
         android:title="@string/pref_hide_perfect_days" />
-    <CheckBoxPreference
+    <SwitchPreference
         android:defaultValue="false"
         android:key="pref_auto_direct_tasbeeh"
         android:summary="@string/pref_auto_direct_tasbeeh_summary"
@@ -39,11 +39,12 @@
             android:summary="Select the tabs to hide"
             android:title="Hide Tabs" />
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="true"
             android:key="pref_hide_splash"
             android:summary="@string/pref_hide_splash_screen_summary"
-            android:title="@string/pref_hide_splash_screen" />
+            android:title="@string/pref_hide_splash_screen" >
+        </SwitchPreference>
     </PreferenceCategory>
 
 </PreferenceScreen>

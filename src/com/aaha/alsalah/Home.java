@@ -80,16 +80,15 @@ public class Home extends SherlockFragmentActivity {
 			redirectToAddDailyPrayer = true;
 		}
 
+		// Clear all the notifications
+		NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		notificationManager.cancelAll();
+
 		/*
 		 * redirect from Home page to AddDailyPrayer page if the activity is
-		 * started from notification. Cancel the notification before loading
-		 * daily prayer page
+		 * started from notification.
 		 */
 		if (redirectToAddDailyPrayer) {
-			// clear the notification only after login AddDailyPrayer activity
-			NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-			notificationManager.cancelAll();
-
 			Intent i = new Intent(this, AddAda.class);
 			startActivity(i);
 			finish();

@@ -18,7 +18,7 @@ import com.aaha.alsalah.R;
 public class ListPreferenceMultiSelect extends ListPreference {
 	private String separator;
 	private static final String DEFAULT_SEPARATOR = ";";
-	private String checkAllKey = null;
+	// private String checkAllKey = null;
 	private boolean[] mClickedDialogEntryIndices;
 
 	// Constructor
@@ -27,8 +27,8 @@ public class ListPreferenceMultiSelect extends ListPreference {
 		super(context, attrs);
 		TypedArray a = context.obtainStyledAttributes(attrs,
 				R.styleable.ListPreferenceMultiSelect);
-		checkAllKey = a
-				.getString(R.styleable.ListPreferenceMultiSelect_checkAll);
+		// checkAllKey = a
+		// .getString(R.styleable.ListPreferenceMultiSelect_checkAll);
 		String s = a.getString(R.styleable.ListPreferenceMultiSelect_separator);
 		if (s != null) {
 			separator = s;
@@ -80,7 +80,7 @@ public class ListPreferenceMultiSelect extends ListPreference {
 	// }
 	// return false;
 	// }
-
+	//
 	// private void checkAll(DialogInterface dialog, boolean val) {
 	// ListView lv = ((AlertDialog) dialog).getListView();
 	// int size = lv.getCount();
@@ -91,6 +91,9 @@ public class ListPreferenceMultiSelect extends ListPreference {
 	// }
 
 	public String[] parseStoredValue(CharSequence val) {
+		if (val == null) {
+			return null;
+		}
 		if ("".equals(val)) {
 			return null;
 		} else {
@@ -131,10 +134,11 @@ public class ListPreferenceMultiSelect extends ListPreference {
 				if (mClickedDialogEntryIndices[i] == true) {
 					// Don't save the state of check all option - if any
 					String val = (String) entryValues[i];
-					if (checkAllKey == null
-							|| (val.equals(checkAllKey) == false)) {
-						values.add(val);
-					}
+					values.add(val);
+					// if (checkAllKey == null
+					// || (val.equals(checkAllKey) == false)) {
+					// values.add(val);
+					// }
 				}
 			}
 
@@ -158,7 +162,7 @@ public class ListPreferenceMultiSelect extends ListPreference {
 	}
 
 	// TODO: Would like to keep this static but separator then needs to be put
-	// in by hand or use default separator "OV=I=XseparatorX=I=VO"...
+	// in by hand or use default separator ";"...
 	/**
 	 * 
 	 * @param straw

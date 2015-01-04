@@ -110,7 +110,7 @@ public class Register extends SherlockFragmentActivity implements
 					db.user.setActiveUserId(userId);
 					LogUtil.toastLong(Register.this, "Assalamualaikum "
 							+ eUsername.getText().toString().trim()
-							+ ", Your profile is created. Please login");
+							+ ", Your profile is created");
 
 					super.finish();
 				}

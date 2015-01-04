@@ -567,7 +567,8 @@ public class DBAdapter {
 					+ T_Prayers.KEY_ZOHAR + ")," + "Sum(" + T_Prayers.KEY_ASR
 					+ "), " + "Sum(" + T_Prayers.KEY_MAGRIB + "), " + "Sum("
 					+ T_Prayers.KEY_ISHA + ") FROM " + TABLE_NAME + " WHERE "
-					+ T_Prayers.KEY_TYPE + "=? AND " + T_Prayers.KEY_USER_ID + "=?";
+					+ T_Prayers.KEY_TYPE + "=? AND " + T_Prayers.KEY_USER_ID
+					+ "=?";
 			return db.rawQuery(
 					sql,
 					new String[] { String.valueOf(type.getValue()),
@@ -1169,8 +1170,8 @@ public class DBAdapter {
 		}
 
 		public Cursor getCounts(long userId) {
-			String sql = "SELECT Sum(" + T_Menstruation.KEY_FAJR + "), " + "Sum("
-					+ T_Menstruation.KEY_ZOHAR + ")," + "Sum("
+			String sql = "SELECT Sum(" + T_Menstruation.KEY_FAJR + "), "
+					+ "Sum(" + T_Menstruation.KEY_ZOHAR + ")," + "Sum("
 					+ T_Menstruation.KEY_ASR + "), " + "Sum("
 					+ T_Menstruation.KEY_MAGRIB + "), " + "Sum("
 					+ T_Menstruation.KEY_ISHA + ") FROM " + TABLE_NAME
@@ -1263,6 +1264,7 @@ public class DBAdapter {
 				if (c.moveToFirst()) {
 					count = c.getFloat(0);
 				}
+				c.close();
 			}
 			return count;
 		}
@@ -1282,7 +1284,6 @@ public class DBAdapter {
 				c.close();
 				return true;
 			}
-
 			return false;
 		}
 

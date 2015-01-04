@@ -56,7 +56,6 @@ public class AddAda extends SherlockFragmentActivity implements OnClickListener 
 	}
 
 	private void setPrayerDate(Date date) {
-
 		Date today = new Date();
 		if (date.compareTo(today) > 0) {
 			LogUtil.toastShort(getApplicationContext(),
@@ -89,7 +88,6 @@ public class AddAda extends SherlockFragmentActivity implements OnClickListener 
 		switch (v.getId()) {
 
 		case R.id.savePrayerButton:
-
 			String day = prayerDate.getText().toString();
 			long prayerId = db.prayer.isExist(day, PrayerType.ADA);
 
@@ -113,7 +111,6 @@ public class AddAda extends SherlockFragmentActivity implements OnClickListener 
 	}
 
 	private void setPrayers() {
-
 		String day = prayerDate.getText().toString();
 		long prayerId = db.prayer.isExist(day, PrayerType.ADA);
 		if (prayerId == -1) {

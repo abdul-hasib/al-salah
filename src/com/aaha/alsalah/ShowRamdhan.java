@@ -100,20 +100,7 @@ public class ShowRamdhan extends SherlockFragment implements OnClickListener {
 		}
 	}
 
-	@Override
-	public void onDestroy() {
-		try {
-			if (mCursor != null) {
-				mCursor.close();
-			}
-		} catch (Exception ignoreMe) {
-
-		}
-		super.onDestroy();
-	}
-
-	@Override
-	public void onStop() {
+	private void closeConnections() {
 		try {
 			if (mCursor != null) {
 				mCursor.close();
@@ -125,6 +112,17 @@ public class ShowRamdhan extends SherlockFragment implements OnClickListener {
 			db.close();
 		} catch (Exception ignoreMe) {
 		}
+	}
+
+	@Override
+	public void onDestroy() {
+		closeConnections();
+		super.onDestroy();
+	}
+
+	@Override
+	public void onStop() {
+		closeConnections();
 		super.onStop();
 	}
 
@@ -202,7 +200,8 @@ public class ShowRamdhan extends SherlockFragment implements OnClickListener {
 		mCursor = db.ramdhan.get();
 
 		String[] databaseColumnNames = new String[] { T_Ramdhan.KEY_DATE,
-				T_Ramdhan.KEY_SIYAM, T_Ramdhan.KEY_TARAWEEH, T_Ramdhan.KEY_QURAN_JUZ };
+				T_Ramdhan.KEY_SIYAM, T_Ramdhan.KEY_TARAWEEH,
+				T_Ramdhan.KEY_QURAN_JUZ };
 
 		int[] toViewIDs = new int[] { R.id.item_date, R.id.item_siyam,
 				R.id.item_taraweeh, R.id.item_quran_vol };
